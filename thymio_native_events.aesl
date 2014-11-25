@@ -1,0 +1,126 @@
+<!DOCTYPE aesl-source>
+<network>
+
+
+<!--list of global events-->
+<event size="8" name="thymioII_leds_prox_h"/>
+<event size="8" name="thymioII_leds_circle"/>
+<event size="3" name="thymioII_leds_top"/>
+<event size="4" name="thymioII_leds_bottom"/>
+<event size="2" name="thymioII_leds_prox_v"/>
+<event size="4" name="thymioII_leds_buttons"/>
+<event size="1" name="thymioII_leds_rc"/>
+<event size="2" name="thymioII_leds_temperature"/>
+<event size="1" name="thymioII_leds_sound"/>
+<event size="2" name="thymioII_sound_freq"/>
+<event size="1" name="thymioII_sound_play"/>
+<event size="1" name="thymioII_sound_system"/>
+<event size="1" name="thymioII_sound_replay"/>
+<event size="32" name="thymioII_sound_wave"/>
+<event size="1" name="thymioII_sound_record"/>
+<event size="1" name="scratch_set_dial"/>
+<event size="0" name="scratch_next_dial"/>
+<event size="1" name="scratch_next_dial_limit"/>
+
+
+<!--list of constants-->
+
+
+<!--show keywords state-->
+<keywords flag="true"/>
+
+
+<!--node thymio-II-->
+<node nodeId="1" name="thymio-II">### Events to expose Aseba native functions as events
+
+## Variables for additional local state
+var scratch_dial = 1
+#var thymioII_wave[142]
+var scr_tmp[8] # reusable temp for event handlers
+call leds.circle(1,1,1,1,1,1,1,1)
+
+## Event handlers for native functions
+onevent thymioII_leds_bottom #
+if event.args[0]==0 then
+	call leds.bottom.left(event.args[1],event.args[2],event.args[3])
+else
+	call leds.bottom.right(event.args[1],event.args[2],event.args[3])
+end
+
+onevent thymioII_leds_buttons #
+call leds.buttons(event.args[0],event.args[1],
+                  event.args[2],event.args[3])
+
+onevent thymioII_leds_circle #
+call leds.circle(event.args[0],event.args[1],event.args[2],
+	             event.args[3],event.args[4],event.args[5],
+	             event.args[6],event.args[7])
+
+onevent thymioII_leds_prox_h #
+call leds.prox.h(event.args[0],event.args[1],event.args[2],
+	             event.args[3],event.args[4],event.args[5],
+	             event.args[6],event.args[7])
+
+onevent thymioII_leds_prox_v #
+call leds.prox.v(event.args[0],event.args[1])
+
+onevent thymioII_leds_rc #
+call leds.rc(event.args[0])
+
+onevent thymioII_leds_sound #
+call leds.sound(event.args[0])
+
+onevent thymioII_leds_temperature #
+call leds.temperature(event.args[0],event.args[1])
+
+onevent thymioII_leds_top #
+call leds.top(event.args[0],event.args[1],event.args[2])
+
+onevent thymioII_sound_freq #
+call sound.freq(event.args[0],event.args[1])
+
+onevent thymioII_sound_play #
+call sound.play(event.args[0])
+
+onevent thymioII_sound_record #
+call sound.record(event.args[0])
+
+onevent thymioII_sound_replay #
+call sound.replay(event.args[0])
+
+onevent thymioII_sound_system #
+call sound.system(event.args[0])
+
+onevent thymioII_sound_wave #
+#for scr_tmp[0] in 0:141 do
+#	thymioII_wave[scr_tmp[0]] = event.args[scr_tmp[0] % 32]
+#end
+#call sound.wave(thymioII_wave)
+
+## Events for standard Scratch-like behaviors
+# costume is a clock dial using the circle LEDs
+sub scratch_dial_set_leds
+scr_tmp = [0,0,0,0,0,0,0,0]
+scr_tmp[(scratch_dial % 8)] = 8
+if (scratch_dial / 8) % 9 > 0 then
+	scr_tmp[((scratch_dial / 8) % 9) - 1] = 24
+end
+if (scratch_dial / 72) % 9 > 0 then
+	scr_tmp[((scratch_dial / 72) % 9) - 1] = 32
+end
+call leds.circle(scr_tmp[0],scr_tmp[1],scr_tmp[2],scr_tmp[3],scr_tmp[4],scr_tmp[5],scr_tmp[6],scr_tmp[7])
+
+onevent scratch_set_dial
+scratch_dial = event.args[0]
+callsub scratch_dial_set_leds
+
+onevent scratch_next_dial
+scratch_dial = (scratch_dial + 1) % 8
+callsub scratch_dial_set_leds
+
+onevent scratch_next_dial_limit # up to 648 = 9 * 9 * 8
+scratch_dial = (scratch_dial + 1) % event.args[0]
+callsub scratch_dial_set_leds</node>
+
+
+</network>
