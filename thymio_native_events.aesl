@@ -70,6 +70,19 @@ var b_button.left
 var b_button.center
 var b_button.forward
 var b_button.right
+var b_clap
+var b_touching.front
+var b_touching.back
+var b_touching.ground
+var proximity.front
+var proximity.back
+var proximity.ground
+var near_side
+var motorspeed.left
+var motorspeed.right
+var tilt.right.left
+var tilt.front.back
+var tilt.top.bottom
 
 ### Motion update
 ## Every 16 Hz tick from acc event: if queue is active,
@@ -102,11 +115,47 @@ if	Qpc >= 0 and Qwait == 0 then
 elseif	Qwait > 0 then
 	Qwait -= 1
 end
+
+onevent buttons
 b_button.backward = button.backward
 b_button.left = button.left
 b_button.center = button.center
 b_button.forward = button.forward
 b_button.right = button.right
+# booleans for touching
+call math.dot(b_touching.front,prox.horizontal,[1,1,1,1,1,0,0],10)
+if  b_touching.front > 0 then
+	b_touching.front = 1
+end
+call math.dot(b_touching.back,prox.horizontal,[0,0,0,0,0,1,1],10)
+if  b_touching.back > 0 then
+	b_touching.back = 1
+end
+call math.dot(b_touching.ground,prox.ground.delta,[1,1],9)
+if  b_touching.ground > 0 then
+	b_touching.ground = 1
+end
+# code sensors value vectors in single integers
+call math.div(scr_tmp[0:6],prox.horizontal,[1533,1533,1533,1533,1533,1150,1150])
+proximity.front = 10000*scr_tmp[0] + 1000*scr_tmp[1] + 100*scr_tmp[2] + 10*scr_tmp[3] + scr_tmp[4]
+proximity.back = 10*scr_tmp[5] + scr_tmp[6]
+proximity.ground = 10*(prox.ground.delta[0]/250) + prox.ground.delta[1]/250
+# distance in front (approx mm)
+call math.dot(distance.front, prox.horizontal,[13,26,39,26,13,0,0],11)
+call math.clamp(distance.front, 190-distance.front, 0,190)
+# distance in back (approx mm)
+call math.max(distance.back, prox.horizontal[5],prox.horizontal[6])
+call math.muldiv(distance.back, distance.back, 267,10000)
+call math.clamp(distance.back, 125-distance.back, 0,125)
+# near side (approx degrees)
+call math.dot(near_side, prox.horizontal,[4,3,0,-3,-4,0,0],9)
+# syntactic sugar for motor speed, tilt
+motorspeed.left = motor.left.speed
+motorspeed.right = motor.right.speed
+tilt.right.left = acc[0]
+tilt.front.back = acc[1]
+tilt.top.bottom = acc[2]
+
 
 ## Add new goal to the queue at position Qnx
 
@@ -121,7 +170,7 @@ if  Qpc &lt; 0 then
 end
 
 onevent Q_enqueue
-scr_tmp[0:3] = event.args[0:3]
+scr_tmp[0:3] = event.args[0:3] 
 callsub Q_enqueue
 
 ### Scratch events
