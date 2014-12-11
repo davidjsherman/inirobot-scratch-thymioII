@@ -62,6 +62,7 @@ var Qpc = 0                           # program counter
 var Qnx = 1                           # next queue position
 var Qwait = 1                         # delay between changes
 
+## Scratch-friendly reporters, updated at 10 Hz from button event
 var distance.front
 var distance.back
 var distance.ground
@@ -83,6 +84,8 @@ var motorspeed.right
 var tilt.right.left
 var tilt.front.back
 var tilt.top.bottom
+
+mic.threshold = 14
 
 ### Motion update
 ## Every 16 Hz tick from acc event: if queue is active,
@@ -115,6 +118,27 @@ if	Qpc >= 0 and Qwait == 0 then
 elseif	Qwait > 0 then
 	Qwait -= 1
 end
+
+## Add new goal to the queue at position Qnx
+
+sub Q_enqueue
+QtpL[Qnx] = scr_tmp[0]
+QtpR[Qnx] = scr_tmp[1]
+QdL[Qnx]  = scr_tmp[2]
+QdR[Qnx]  = scr_tmp[3]
+Qnx = (Qnx+1)%QUEUE
+if  Qpc &lt; 0 then
+	Qpc = Qnx
+end
+
+onevent Q_enqueue
+scr_tmp[0:3] = event.args[0:3] 
+callsub Q_enqueue
+
+
+### Reporter update
+## Every 10 Hz tick from button event: update variables used by extension
+## definition. Asebahttp treats variable names starting with b_ as boolean
 
 onevent buttons
 b_button.backward = button.backward
@@ -155,23 +179,13 @@ motorspeed.right = motor.right.speed
 tilt.right.left = acc[0]
 tilt.front.back = acc[1]
 tilt.top.bottom = acc[2]
-
-
-## Add new goal to the queue at position Qnx
-
-sub Q_enqueue
-QtpL[Qnx] = scr_tmp[0]
-QtpR[Qnx] = scr_tmp[1]
-QdL[Qnx]  = scr_tmp[2]
-QdR[Qnx]  = scr_tmp[3]
-Qnx = (Qnx+1)%QUEUE
-if  Qpc &lt; 0 then
-	Qpc = Qnx
+# b_clap if mic intensity over threshold
+if mic.intensity >= mic.threshold then
+	b_clap = 1
+else
+	b_clap = 0
 end
 
-onevent Q_enqueue
-scr_tmp[0:3] = event.args[0:3] 
-callsub Q_enqueue
 
 ### Scratch events
 ## scratch_move/:mm
