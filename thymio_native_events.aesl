@@ -18,6 +18,8 @@
 <event size="1" name="thymioII_sound_replay"/>
 <event size="32" name="thymioII_sound_wave"/>
 <event size="1" name="thymioII_sound_record"/>
+<event size="1" name="thymioII_left_motor"/>
+<event size="1" name="thymioII_right_motor"/>
 <event size="1" name="scratch_set_dial"/>
 <event size="0" name="scratch_next_dial"/>
 <event size="1" name="scratch_next_dial_limit"/>
@@ -27,7 +29,11 @@
 <event size="2" name="scratch_arc"/>
 <event size="2" name="scratch_start"/>
 <event size="0" name="scratch_stop"/>
-<event size="2" name="scratch_changeSpeed"/>
+<event size="2" name="scratch_change_speed"/>
+<event size="0" name="scratch_clear_leds"/>
+<event size="2" name="scratch_set_leds"/>
+<event size="2" name="scratch_change_leds"/>
+<event size="0" name="scratch_avoid"/>
 
 
 <!--list of constants-->
@@ -52,6 +58,7 @@
 ## spinning dial 
 var scratch_dial = 1
 var scr_tmp[9] # reusable temp for event handlers
+var avd[3] = [0,0,0]
 
 ## simple queue for motion commands
 var QtpL[QUEUE] = [ 0,0,0,0,0,0,0,0 ] # target dist L
@@ -81,9 +88,10 @@ var proximity.ground
 var near_side
 var motorspeed.left
 var motorspeed.right
-var tilt.right_left
-var tilt.front_back
-var tilt.top_bottom
+var tilt.right.left
+var tilt.front.back
+var tilt.top.bottom
+var leds.colors[3] = [0,0,0]
 
 mic.threshold = 14
 
@@ -166,19 +174,31 @@ proximity.back = 10*scr_tmp[5] + scr_tmp[6]
 proximity.ground = 10*(prox.ground.delta[0]/250) + prox.ground.delta[1]/250
 # distance in front (approx mm)
 call math.dot(distance.front, prox.horizontal,[13,26,39,26,13,0,0],11)
-call math.clamp(distance.front, 190-distance.front, 0,190)
+# older firmware doesn't have math.clamp
+distance.front = 190-distance.front
+if distance.front &lt; 0 then
+	distance.front = 0
+elseif distance.front > 190 then
+	distance.front = 190
+end
 # distance in back (approx mm)
 call math.max(distance.back, prox.horizontal[5],prox.horizontal[6])
 call math.muldiv(distance.back, distance.back, 267,10000)
-call math.clamp(distance.back, 125-distance.back, 0,125)
+# older firmware doesn't have math.clamp
+distance.back = 125-distance.front
+if distance.back &lt; 0 then
+	distance.back = 0
+elseif distance.back > 125 then
+	distance.back = 125
+end
 # near side (approx degrees)
 call math.dot(near_side, prox.horizontal,[4,3,0,-3,-4,0,0],9)
 # syntactic sugar for motor speed, tilt
 motorspeed.left = motor.left.speed
 motorspeed.right = motor.right.speed
-tilt.right_left = acc[0]
-tilt.front_back = acc[1]
-tilt.top_bottom = acc[2]
+tilt.right.left = acc[0]
+tilt.front.back = acc[1]
+tilt.top.bottom = acc[2]
 # b_clap if mic intensity over threshold
 if mic.intensity >= mic.threshold then
 	b_clap = 1
@@ -191,9 +211,13 @@ end
 ## scratch_move/:mm
 onevent scratch_move
 scr_tmp[0] = event.args[0] * 50
-call math.clamp(scr_tmp[2],abs(event.args[0]),20,150)
-#call math.min(scr_tmp[2],event.args[0],150)
-#call math.max(scr_tmp[2],scr_tmp[2],20)
+# older firmware doesn't have math.clamp
+scr_tmp[2] = abs(event.args[0])
+if scr_tmp[2] &lt; 20 then
+	scr_tmp[2] = 20
+elseif scr_tmp[2] > 150 then
+	scr_tmp[2] = 150
+end
 if event.args[0] &lt; 0 then
 	call math.muldiv(scr_tmp[2],-scr_tmp[2],32,10)
 else
@@ -268,24 +292,93 @@ onevent scratch_stop
 motor.left.target = 0
 motor.right.target = 0
 
-## scratch_changeSpeed/:left/:right
-onevent scratch_changeSpeed
+## scratch_change_speed/:left/:right
+onevent scratch_change_speed
 call math.muldiv(scr_tmp[0], event.args[0], 32, 10)
 call math.muldiv(scr_tmp[1], event.args[1], 32, 10)
 motor.left.target += scr_tmp[0]
 motor.right.target += scr_tmp[1]
 
 ## scratch_avoid
+onevent scratch_avoid
+call math.muldiv(scr_tmp[0], -1520 + 12*distance.front + 400*near_side, motor.left.target,  760)
+call math.muldiv(scr_tmp[1], -1520 + 12*distance.front - 400*near_side, motor.right.target, 760)
+if abs(scr_tmp[0]-scr_tmp[1]) &lt; 20 then
+	call math.rand(scr_tmp[7])
+	scr_tmp[0] += scr_tmp[7] / 2048
+end
+avd[0:2] = [motor.left.target, motor.right.target, 3]
+motor.left.target = scr_tmp[0]
+motor.right.target = scr_tmp[1]
+timer.period[1] = 30
 
-## scratch_setLeds
+onevent timer1
+if avd[2] > 0 then
+	if avd[0]>5 or avd[1]>5 then
+		motor.left.target = avd[0]
+		motor.right.target = avd[1]
+	end
+	timer.period[1] = 30
+	avd[2] -= 1
+else
+	avd[0:2] = [0,0,0]
+end
 
-## scratch_changeLeds
+## scratch_set_leds
+sub _scratch_set_leds
+scr_tmp[0] %= 198
+scr_tmp[5] = scr_tmp[0] / 33
+if scr_tmp[5]==0 then
+	scr_tmp[2:4] = [33, scr_tmp[0]%33, 0]
+elseif scr_tmp[5]==1 then
+	scr_tmp[2:4] = [33-(scr_tmp[0]%33), 33, 0 ]
+elseif scr_tmp[5]==2 then
+	scr_tmp[2:4] = [0, 33, scr_tmp[0]%33]
+elseif scr_tmp[5]==3 then
+	scr_tmp[2:4] = [0, 33-scr_tmp[0]%33, 33]
+elseif scr_tmp[5]==4 then
+	scr_tmp[2:4] = [scr_tmp[0]%33, 0, 33]
+elseif scr_tmp[5]==5 then
+	scr_tmp[2:4] = [33, 0, 33-scr_tmp[0]%33]
+end
+if scr_tmp[1] &amp; 1 == 1 then
+	call leds.top(scr_tmp[2],scr_tmp[3],scr_tmp[4])
+	leds.colors[0] = scr_tmp[0]
+end
+if scr_tmp[1] &amp; 2 == 2 then
+	call leds.bottom.left(scr_tmp[2],scr_tmp[3],scr_tmp[4])
+	leds.colors[1] = scr_tmp[0]
+end
+if scr_tmp[1] &amp; 4 == 4 then
+	call leds.bottom.right(scr_tmp[2],scr_tmp[3],scr_tmp[4])
+	leds.colors[2] = scr_tmp[0]
+end
 
-## scratch_clearLeds
+## scratch_set_leds
+onevent scratch_set_leds
+scr_tmp[0:1] = [event.args[0] % 198, event.args[1]]
+callsub _scratch_set_leds
 
+## scratch_change_leds
+onevent scratch_change_leds
+scr_tmp[6:7] = [event.args[0] % 198, event.args[1]]
+scr_tmp[0:1] = [leds.colors[0] + scr_tmp[6] * (scr_tmp[7] &amp; 1), (scr_tmp[7] &amp; 1)]
+callsub _scratch_set_leds
+scr_tmp[0:1] = [leds.colors[1] + scr_tmp[6] * (scr_tmp[7] &amp; 2)/2, (scr_tmp[7] &amp; 2)]
+callsub _scratch_set_leds
+scr_tmp[0:1] = [leds.colors[2] + scr_tmp[6] * (scr_tmp[7] &amp; 4)/4, (scr_tmp[7] &amp; 4)]
+callsub _scratch_set_leds
+
+## scratch_clear_leds
+onevent scratch_clear_leds
+call leds.circle(0,0,0,0,0,0,0,0)
+call leds.top(0,0,0)
+call leds.bottom.right(0,0,0)
+call leds.bottom.left(0,0,0)
+leds.colors = [0,0,0]
 
 ## costume is a clock dial using the circle LEDs
-sub scratch_dial_set_leds
+sub _scratch_dial_set_leds
 scr_tmp[0:7] = [0,0,0,0,0,0,0,0]
 scr_tmp[(scratch_dial % 8)] = 8
 if (scratch_dial / 8) % 9 > 0 then
@@ -299,17 +392,17 @@ call leds.circle(scr_tmp[0],scr_tmp[1],scr_tmp[2],scr_tmp[3],scr_tmp[4],scr_tmp[
 ## scratch_set_dial
 onevent scratch_set_dial
 scratch_dial = event.args[0]
-callsub scratch_dial_set_leds
+callsub _scratch_dial_set_leds
 
 ## scratch_next_dial
 onevent scratch_next_dial
 scratch_dial = (scratch_dial + 1) % 8
-callsub scratch_dial_set_leds
+callsub _scratch_dial_set_leds
 
 ## scratch_next_dial_limit
 onevent scratch_next_dial_limit # up to 648 = 9 * 9 * 8
 scratch_dial = (scratch_dial + 1) % event.args[0]
-callsub scratch_dial_set_leds
+callsub _scratch_dial_set_leds
 
 
 ### Events to expose Aseba native functions as events
@@ -370,7 +463,13 @@ onevent thymioII_sound_wave #
 #for scr_tmp[0] in 0:141 do
 #	thymioII_wave[scr_tmp[0]] = event.args[scr_tmp[0] % 32]
 #end
-#call sound.wave(thymioII_wave)</node>
+#call sound.wave(thymioII_wave)
+
+onevent thymioII_left_motor
+motor.left.target = event.args[0] * 32 / 10
+
+onevent thymioII_right_motor
+motor.right.target = event.args[0] * 32 / 10</node>
 
 
 </network>
