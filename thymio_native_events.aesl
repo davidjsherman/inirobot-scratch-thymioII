@@ -81,9 +81,9 @@ var proximity.ground
 var near_side
 var motorspeed.left
 var motorspeed.right
-var tilt.right.left
-var tilt.front.back
-var tilt.top.bottom
+var tilt.right_left
+var tilt.front_back
+var tilt.top_bottom
 
 mic.threshold = 14
 
@@ -176,9 +176,9 @@ call math.dot(near_side, prox.horizontal,[4,3,0,-3,-4,0,0],9)
 # syntactic sugar for motor speed, tilt
 motorspeed.left = motor.left.speed
 motorspeed.right = motor.right.speed
-tilt.right.left = acc[0]
-tilt.front.back = acc[1]
-tilt.top.bottom = acc[2]
+tilt.right_left = acc[0]
+tilt.front_back = acc[1]
+tilt.top_bottom = acc[2]
 # b_clap if mic intensity over threshold
 if mic.intensity >= mic.threshold then
 	b_clap = 1
