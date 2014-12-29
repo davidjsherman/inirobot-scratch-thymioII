@@ -1,0 +1,23 @@
+<!DOCTYPE aesl-source>
+<network>
+
+
+<!--list of global events-->
+
+
+<!--list of constants-->
+
+
+<!--show keywords state-->
+<keywords flag="true"/>
+
+
+<!--node thymio-II-->
+<node nodeId="1" name="thymio-II"># Simple test of whether bytecode can be loaded
+# also test urlencoding of less-than sign
+if 1 &lt; 2 then
+call sound.system(0)
+end</node>
+
+
+</network>
