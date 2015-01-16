@@ -10,6 +10,7 @@
 <event size="5" name="Q_motion_started"/>
 <event size="5" name="Q_motion_ended"/>
 <event size="1" name="Q_motion_noneleft"/>
+<event size="3" name="Q_set_odometer"/>
 <event size="8" name="V_leds_prox_h"/>
 <event size="8" name="V_leds_circle"/>
 <event size="3" name="V_leds_top"/>
@@ -62,12 +63,28 @@ var distance.front = 190
 var distance.back  = 125
 var angle.front    = 0
 
+## odometry
+var odo.delta
+var odo.theta = 0
+var odo.x = 0
+var odo.y = 0
+var odo.degree
+
+mic.threshold = 12
 
 ### Motion update
 ## Every 16 Hz tick from acc event: if motion task at Qpc is active, turn
 ## motors, else look for a next task to perform
 
-onevent acc # loop runs at 16 Hz
+onevent motor # loop runs at 100 Hz
+odo.delta = (motor.right.target + motor.left.target) / 2
+call math.muldiv(tmp[0], (motor.right.target - motor.left.target), 3406, 10000)
+odo.theta += tmp[0]
+call math.cos(tmp[0:1],[odo.theta,16384-odo.theta])
+call math.muldiv(tmp[0:1], [odo.delta,odo.delta],tmp[0:1], [32767,32767])
+odo.x += tmp[0]/45
+odo.y += tmp[1]/45
+odo.degree = odo.theta / 182
 if Qtime[Qpc] > 0 then
 	# start new motion
 	emit Q_motion_started([Qid[Qpc], Qtime[Qpc], QspL[Qpc], QspR[Qpc], Qpc])
@@ -124,6 +141,11 @@ callsub motion_add
 onevent Q_cancel_motion
 tmp[0] = event.args[0]
 callsub motion_cancel
+
+onevent Q_set_odometer
+odo.theta = (((event.args[0] + 360) % 360) - 90) * 182
+odo.x = event.args[1] * 28
+odo.y = event.args[2] * 28
 
 
 ### Simplified reporters
