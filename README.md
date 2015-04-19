@@ -8,10 +8,10 @@ Thymio-II is an autonomous two-wheeled robot, also designed for children. It has
 
 ## Requirements
 
-1. Offline Scratch 2
-2. This software (current release 0.6.2-alpha)
+1. [Offline Scratch 2](https://scratch.mit.edu/scratch2download/)
+2. This software (current release [0.6.2-alpha](https://github.com/davidjsherman/inirobot-scratch-thymioII/releases/tag/v0.6.2-alpha))
 3. A Thymio-II *tethered to the machine* running Scratch 2
-4. (On Windows) the Aseba software that came with the robot
+4. On Windows, the [Aseba software](https://aseba.wikidot.com/en:start) that came with the robot
 
 ## Quick start
 
@@ -44,15 +44,16 @@ This program is loaded automatically by a helper script.
 ### REST interfaces provided by asebascratch
 
 The asebascratch helper responds to five kinds of request:
-1. /scratch_…
+
+1. **/scratch_…**
 A high-level Scratch 2 interface for turtle motion, simplified environment sensing, Scratch 2 color effects 
-2. /Q_…, /V_…, /A_…, /M_…
+2. **/Q_…**, **/V_…**, **/A_…**, **/M_…**
 A mid-level interface to events defined in thymio_motion.aesl
-3. /_variable_name_
+3. **/_variable_name_**
 Get/set interface to robot variables
-4. /poll, /reset_all
+4. **/poll, /reset_all**
 Standard requests required by Scratch 2
-5. /nodes/thymio-II
+5. **/nodes/thymio-II**
 JSON description of the events defined in thymio_motion.aesl and available through the REST interface
 
 ### Scratch 2 high-level blocks and reporters
