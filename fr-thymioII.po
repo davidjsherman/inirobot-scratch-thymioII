@@ -516,7 +516,7 @@ msgid "turn %n degrees"
 msgstr "tourner %n degrés"
 
 msgid "curve radius %n mm %n degrees"
-msgstr "virer au rayon %n mm de %n degrés"
+msgstr "tourner en avançant au rayon %n mm de %n degrés"
 
 msgid "start motors %n x %n mm/sec"
 msgstr "démarrer les moteurs %n x %n mm/sec"
@@ -530,11 +530,17 @@ msgstr "arrêter les moteurs"
 msgid "switch dial to %n"
 msgstr "mettre le cadran à %n"
 
-msgid "next dial modulo %n"
-msgstr "avancer le cadran, modulo %n"
+msgid "next dial"
+msgstr "avancer le cadran"
+
+msgid "next dial up to %n"
+msgstr "avancer le cadran, limité à %n"
 
 msgid "leds top rgb %n %n %n"
 msgstr "couleur haut rvb %n %n %n"
+
+msgid "leds color %m.light"
+msgstr "couleur des lumières %m.light"
 
 msgid "leds bottom %m.zeroone rgb %n %n %n"
 msgstr "couleur bas %m.zeroone rvb %n %n %n"
@@ -546,16 +552,16 @@ msgid "play system sound %n"
 msgstr "jouer le son système %n"
 
 msgid "touching %m.sensors"
-msgstr "je touche à %m.sensors"
+msgstr "je touche %m.sensors"
 
 msgid "button %m.button"
-msgstr "bouton %m.button est touché?"
+msgstr "le bouton %m.button est touché"
 
 msgid "clap"
 msgstr "j'entends un claquement"
 
 msgid "distance %m.sensors"
-msgstr "distance à %m.sensors"
+msgstr "distance %m.sensors"
 
 msgid "near side"
 msgstr "approche à côté"
@@ -563,8 +569,14 @@ msgstr "approche à côté"
 msgid "motor %m.leftright speed"
 msgstr "moteur %m.leftright vitesse"
 
+msgid "motor %m.leftright target"
+msgstr "moteur %m.leftright vitesse demandée"
+
 msgid "tilt on %m.tilt axis"
 msgstr "inclinaison sur l'axe %m.tilt"
+
+msgid "lumières color %m.light"
+msgstr "couleur lumières %m.light"
 
 msgid "sensing front"
 msgstr "capteurs de l'avant"
@@ -575,14 +587,17 @@ msgstr "température"
 msgid "loundness"
 msgstr "bruit"
 
+msgid "odometer %m.odo"
+msgstr "odomètre %m.odo"
+
 msgid "front"
-msgstr "l'avant"
+msgstr "à l'avant"
 
 msgid "back"
-msgstr "l'arrière"
+msgstr "à l'arrière"
 
 msgid "ground"
-msgstr "au sol"
+msgstr "en dessous"
 
 msgid "left"
 msgstr "gauche"
@@ -614,6 +629,15 @@ msgstr "centre"
 msgid "forward"
 msgstr "avant"
 
+msgid "top"
+msgstr "du haut"
+
+msgid "bottom/left"
+msgstr "du bas à gauche"
+
+msgid "bottom/right"
+msgstr "du bas à droite"
+
 msgid "backward"
 msgstr "arrière"
 
@@ -621,13 +645,19 @@ msgid "avoid obstacle"
 msgstr "éviter des obstacles"
 
 msgid "leds clear"
-msgstr "éteindre les leds"
+msgstr "éteindre les lumières"
 
 msgid "leds set color %n flags %n"
-msgstr "choisir la couleur %n pour les leds %n"
+msgstr "choisir la couleur %n pour les lumières %n"
+
+msgid "leds change color %n flags %n"
+msgstr "changer la couleur %n pour les lumières %n"
 
 msgid "play note %n for %n 60ths"
 msgstr "jouer la note %n pour %n 60èmes"
+
+msgid "set odometer direction:%n x:%n y:%n"
+msgstr "initialiser l'odomètre, direction: %n x: %n y: %n"
 
 msgid "set left motor %n mm/sec"
 msgstr "démarrer le moteur gauche à %n mm/sec"
