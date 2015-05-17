@@ -27,6 +27,7 @@
 <event size="1" name="A_sound_record"/>
 <event size="1" name="M_motor_left"/>
 <event size="1" name="M_motor_right"/>
+<event size="29" name="R_state"/>
 
 
 <!--list of constants-->
@@ -69,6 +70,9 @@ var odo.theta = 0
 var odo.x = 0
 var odo.y = 0
 var odo.degree
+
+## broadcast variables
+var R_state.do = 0
 
 mic.threshold = 12
 
@@ -157,6 +161,16 @@ call math.max(distance.back, prox.horizontal[5],prox.horizontal[6])
 call math.muldiv(distance.back, distance.back, 267,10000)
 distance.back = 125-distance.back # client should clamp to 0..125
 call math.dot(angle.front, prox.horizontal,[4,3,0,-3,-4,0,0],9)
+if R_state.do==1 then
+	emit R_state([acc[0:2], angle.front, 
+          (button.backward&lt;&lt;4) + (button.center&lt;&lt;3) + (button.forward&lt;&lt;2) + 
+          	(button.left&lt;&lt;1) + button.right,
+          distance.back, distance.front, mic.intensity, mic.threshold,
+		  motor.left.speed, motor.left.target, motor.right.speed, motor.right.target,
+	      odo.delta, odo.theta, odo.x, odo.y,
+		  prox.comm.rx, prox.comm.tx, prox.ground.delta, prox.horizontal,
+		  temperature])
+end
 
 
 ### Event handlers for native functions
