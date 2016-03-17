@@ -22,7 +22,7 @@
 	["b", "button %m.button",                  "b_button",                                "center"],
 	["b", "clap",                              "b_clap"                                   ],
 	["r", "distance %m.sensors",               "distance",                                "front"],
-    ["r", "angle %m.angle",                    "angle",                                   "front"],
+    ["r", "angle %m.sensors",                  "angle",                                   "front"],
 	["r", "motor %m.leftright speed",          "motor.speed",                             "left"],
     ["r", "motor %m.leftright target",         "motor.target",                            "left"],
 	["r", "tilt on %m.tilt axis",              "tilt",                                    "right_left"],
