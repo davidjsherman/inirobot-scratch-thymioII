@@ -1,3 +1,10 @@
+# Makefile for building MacOS app bundles
+#
+# Default target builds Scratch2-ThymioII.app
+# To build the menu items use:
+#   make BUNDLE=AsebaHTTP-Menu.app SCRIPT=asebahttp-menu.perl PROFILE=AsebaHTTP-Menu.platypus
+#   make BUNDLE=AsebaScratch-Menu.app SCRIPT=asebascratch-menu.perl PROFILE=AsebaScratch-Menu.platypus
+
 BUNDLE = Scratch2-ThymioII.app
 SCRIPT = asebascratch-none.perl
 PROFILE = Scratch2-ThymioII.platypus
