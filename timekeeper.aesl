@@ -1,0 +1,216 @@
+<!DOCTYPE aesl-source>
+<network>
+
+
+<!--list of global events-->
+<event size="0" name="stop"/>
+<event size="0" name="start"/>
+<event size="1" name="settime"/>
+<event size="0" name="pause"/>
+<event size="0" name="reset"/>
+<event size="2" name="status"/>
+
+
+<!--list of constants-->
+<constant value="20" name="COLORS"/>
+<constant value="1200" name="DEFAULT_TIME"/>
+<constant value="300" name="GRACE_PERIOD"/>
+<constant value="90" name="ALERT_ENDS"/>
+
+
+<!--show keywords state-->
+<keywords flag="true"/>
+
+
+<!--node thymio-II-->
+<node nodeId="50386" name="thymio-II"># Seminar timekeeper using Thymio-II
+#
+# The Thymio runs an N-minute countdown clock, gradually changing color
+# from green to red as time runs out. In the final minutes before time runs
+# out, the Thymio will beep every minute. When time runs out the Thymio
+# will turn angry red and start spinning like a top, faster and faster.
+#
+# Buttons: forward to start, center to stop, backward to reset to default time.
+# Tap: when the state is running, warning, or paused, tap is pause; when
+# stopped, tap starts the clock; when alert, tap stops the alert.
+#
+# RC5 remote control: forward, center, backward arrows work as buttons above.
+# Digits can be used to set the time for the next session, between 1 and 99
+# minutes, or (if running), to add a single-digit number of additional minutes.
+# Any other buttons pause the clock.
+#
+# The timekeeper can also be controlled using Aseba events.
+# While running, the timekeeper emits a status message every second,
+# reporting the remaining time and the automaton state: 1 running, 
+# 2 warning period, 3 alert, -1 paused.
+
+# red and green channels of a 20-step palette from green to red
+# in HCL (hue, chroma, luminosity) color space, with C=200 L=60
+var RG[2*COLORS] = [23,0,23,0,23,0,22,0,22,0,21,6,21,11,20,15,19,18,
+	19,20,18,22,17,24,16,25,16,27,15,28,14,30,12,31,11,31,9,31,7,31]
+
+var i
+var time = DEFAULT_TIME
+var tick = 0
+var pause = 0
+var sec[2]=[0,4]
+var digit = 0
+
+call leds.temperature(0,0)
+call leds.prox.v(0,0)
+call leds.prox.h(0,0,0,0,0,0,0,0)
+
+sub slide_colors
+	call math.clamp(i, tick * COLORS / time, 0, COLORS-1)
+	call leds.top(RG[(i*2)+1], RG[(i*2)], 0)
+	motor.left.target = 0
+	motor.right.target = 0
+
+# Automaton states
+
+sub stop_state
+	call leds.top(0,0,0)
+	motor.left.target = 0
+	motor.right.target = 0
+	tick = 0
+	# emit status([time-tick,0])
+
+sub running_state
+	callsub slide_colors
+	tick += 1
+	emit status([time-tick,1])
+
+sub warning_state
+	if (tick%60)==0 then
+		call sound.system(5)
+	end
+	callsub slide_colors
+	tick += 1
+	emit status([time-tick,2])
+
+sub alert_state
+	call leds.top(sec[0]*8,0,0)
+	when tick >= time do
+		call sound.system(4)
+		call sound.system(4)
+	end
+	tick += 1
+	call math.clamp(i, tick-time, 0, 50)
+	motor.left.target = -200 - (i*5)
+	motor.right.target = 200 + (i*5)
+	emit status([time-tick,3])
+
+sub paused_state
+	call leds.top(0,0,sec[0])
+	emit status([time-tick,-1])
+
+# Clock at 1 Hz triggers automaton transitions
+
+onevent temperature
+	sec[0:1]=[sec[1],sec[0]]
+	call leds.bottom.left(0,0,sec[0])
+	call leds.bottom.right(0,0,sec[1])
+	if tick > 0 and pause > 0 then
+		callsub paused_state
+	elseif tick > 0 and tick &lt; time then
+		if (time-tick) &lt; GRACE_PERIOD then
+			callsub warning_state
+		end
+		callsub running_state
+	elseif (tick-time) > ALERT_ENDS then
+		call sound.system(1)
+		callsub stop_state
+	elseif tick >= time then
+		callsub alert_state
+	else # tick &lt;= 0
+		callsub stop_state
+	end
+
+# Subroutines for commands
+
+sub do_stop
+	tick = 0
+	call sound.system(1)
+	
+sub do_start
+	tick = 1
+	call sound.system(0)
+
+sub do_pause
+	if tick > 0 and tick &lt; time then
+		pause = 1 - pause
+		call sound.system(pause)
+	end
+
+sub do_reset
+	time = DEFAULT_TIME
+	callsub do_stop
+
+# change time using remote control
+
+sub do_digit
+	if tick > 0 then # running, add single-digit additional time
+		time = tick + (rc5.command * 60)
+	else # not running, set two-digit time for next session
+		digit = (digit*10) + rc5.command
+		if digit >= 100 then # if too big start over
+			digit = rc5.command
+		elseif digit > 0 then
+			time =(digit * 60)
+		end
+	end
+
+# Event triggers
+
+onevent stop
+	callsub do_stop
+
+onevent start
+	callsub do_start
+
+onevent settime
+time = event.args[0]
+
+onevent pause
+	callsub do_pause
+
+onevent reset
+	callsub do_reset
+
+# Thymio triggers
+
+onevent button.center
+	callsub do_stop
+
+onevent button.forward
+	callsub do_start
+
+onevent button.backward
+	callsub do_reset
+
+onevent tap
+	if tick > 0 and tick &lt; time then
+		callsub do_pause # if running, tap is pause
+	elseif tick >= time then
+		callsub do_stop # if in alert, tap is stop
+	else
+		callsub do_start # if not running, tap is start
+	end
+
+# Remote control triggers
+
+onevent rc5
+	if rc5.command == 87 then
+		callsub do_stop
+	elseif rc5.command == 80 then
+		callsub do_start
+	elseif rc5.command == 81 then
+		callsub do_reset
+	elseif rc5.command >= 0 and rc5.command &lt;= 10 then # some remotes have a 10 button...
+		callsub do_digit
+	else
+		callsub do_pause
+	end</node>
+
+
+</network>
