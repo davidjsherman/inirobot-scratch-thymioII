@@ -83,6 +83,7 @@ sub running_state
 sub warning_state
 	if (tick%60)==0 then
 		call sound.system(5)
+		call sound.play(2)
 	end
 	callsub slide_colors
 	tick += 1
@@ -92,7 +93,7 @@ sub alert_state
 	call leds.top(sec[0]*8,0,0)
 	when tick >= time do
 		call sound.system(4)
-		call sound.system(4)
+		call sound.play(2)
 	end
 	tick += 1
 	call math.clamp(i, tick-time, 0, 50)
@@ -196,6 +197,11 @@ onevent tap
 	else
 		callsub do_start # if not running, tap is start
 	end
+
+onevent button.right
+	call sound.play(0)
+onevent button.left
+	call sound.play(0)
 
 # Remote control triggers
 
