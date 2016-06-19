@@ -81,7 +81,7 @@ sub running_state
 	emit status([time-tick,1])
 
 sub warning_state
-	if (tick%60)==0 then
+	if (abs(time-tick)%60)==0 then
 		call sound.system(5)
 	end
 	callsub slide_colors
@@ -92,7 +92,7 @@ sub alert_state
 	call leds.top(sec[0]*8,0,0)
 	when tick >= time do
 		call sound.system(4)
-		call sound.system(4)
+		call sound.play(4)
 	end
 	tick += 1
 	call math.clamp(i, tick-time, 0, 50)
@@ -102,7 +102,7 @@ sub alert_state
 
 sub paused_state
 	call leds.top(0,0,sec[0])
-	emit status([time-tick,-1])
+	emit status([time-tick,4])
 
 # Clock at 1 Hz triggers automaton transitions
 
@@ -202,12 +202,20 @@ onevent tap
 onevent rc5
 	if rc5.command == 87 then
 		callsub do_stop
-	elseif rc5.command == 80 then
+	elseif rc5.command == 80 or rc5.command == 53 then
 		callsub do_start
 	elseif rc5.command == 81 then
 		callsub do_reset
 	elseif rc5.command >= 0 and rc5.command &lt;= 10 then # some remotes have a 10 button...
 		callsub do_digit
+	elseif rc5.command == 16 then
+		time += 60
+	elseif rc5.command == 17 then
+		if (time-60) > tick then
+			time -= 60
+		else
+			call sound.system(9)
+		end
 	else
 		callsub do_pause
 	end</node>
