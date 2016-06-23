@@ -611,7 +611,16 @@ msgstr "droite-gauche"
 msgid "front_back"
 msgstr "avant-arrière"
 
-msgid "top_bottom"
+msgid "top_bottom
+msgstr "haut-bas"
+
+msgid "right-left"
+msgstr "droite-gauche"
+
+msgid "front-back"
+msgstr "avant-arrière"
+
+msgid "top-bottom
 msgstr "haut-bas"
 
 msgid "right/left"
@@ -629,13 +638,25 @@ msgstr "centre"
 msgid "forward"
 msgstr "avant"
 
+msgid "all"
+msgstr "toutes"
+
 msgid "top"
 msgstr "du haut"
+
+msgid "bottom"
+msgstr "du bas"
 
 msgid "bottom/left"
 msgstr "du bas à gauche"
 
+msgid "bottom left"
+msgstr "du bas à gauche"
+
 msgid "bottom/right"
+msgstr "du bas à droite"
+
+msgid "bottom right"
 msgstr "du bas à droite"
 
 msgid "backward"
@@ -650,8 +671,14 @@ msgstr "éteindre les lumières"
 msgid "leds set color %n flags %n"
 msgstr "choisir la couleur %n pour les lumières %n"
 
+msgid "leds set color %n on %m.light"
+msgstr "choisir la couleur %n pour les lumières %m.light"
+
 msgid "leds change color %n flags %n"
 msgstr "changer la couleur %n pour les lumières %n"
+
+msgid "leds change color %n on %m.light"
+msgstr "changer la couleur %n pour les lumières %m.light"
 
 msgid "play note %n for %n 60ths"
 msgstr "jouer la note %n pour %n 60èmes"
