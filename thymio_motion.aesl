@@ -182,7 +182,7 @@ call math.clamp(distance.back,125-distance.back,0,125) # client should clamp to 
 call math.dot(angle.front, prox.horizontal,[4,3,0,-3,-4,0,0],9)
 call math.dot(angle.back, prox.horizontal,[0,0,0,0,0,-4,4],9)
 call math.dot(angle.ground, prox.ground.delta,[4,-4],7)
-R_state = [	(((acc[0]+32)%32)&lt;&lt;10) + (((acc[1]+32)%32)&lt;&lt;5) + ((acc[2]+32)%32),
+R_state = [	((((acc[0]/2)+16)%32)&lt;&lt;10) + ((((acc[1]/2)+16)%32)&lt;&lt;5) + (((acc[2]/2)+16)%32),
 			(((mic.intensity/mic.threshold)%8)&lt;&lt;8) +
 				(0&lt;&lt;5) +
 				(button.backward&lt;&lt;4) +
@@ -190,7 +190,7 @@ R_state = [	(((acc[0]+32)%32)&lt;&lt;10) + (((acc[1]+32)%32)&lt;&lt;5) + ((acc[2
 				(button.forward&lt;&lt;2) +
 				(button.left&lt;&lt;1) +
 				button.right,
-			angle.back,
+			((angle.ground+90) &lt;&lt; 8) + (angle.back+90),
 			angle.front,
 			(distance.back&lt;&lt;8) + distance.front,
 			motor.left.target,
