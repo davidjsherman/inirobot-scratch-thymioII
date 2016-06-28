@@ -2,6 +2,7 @@
 
 Scratch2-ThymioII is a helper program that connects the Scratch 2 offline editor to a Thymio-II robot.
 
+- download and install [the latest release](https://github.com/davidjsherman/inirobot-scratch-thymioII/releases)
 - connect the Thymio-II by a USB cable or by a Thymio-RF dongle
 - run the Scratch2-ThymioII helper
 - open the Thymio-II sensors.sb2 example with Scratch 2
