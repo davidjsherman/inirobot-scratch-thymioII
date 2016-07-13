@@ -1,0 +1,346 @@
+{
+    "swagger": "2.0",
+    "schemes": [
+        "http"
+    ],
+    "host": "localhost:3000",
+    "info": {
+        "version": "",
+        "title": "minimal",
+        "description": ""
+    },
+    "paths": {
+        "/events/{node}": {
+            "parameters": [
+                {
+                    "name": "node",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "",
+                "description": "",
+                "operationId": "GET_events-node",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/reset": {
+            "parameters": [],
+            "get": {
+                "tags": [
+                    "Reset"
+                ],
+                "summary": "",
+                "description": "",
+                "operationId": "GET_reset",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "204": {
+                        "description": "",
+                        "schema": {
+                            "type": "null"
+                        }
+                    }
+                }
+            }
+        },
+        "/nodes/{node}/{variableslot}": {
+            "parameters": [
+                {
+                    "name": "node",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "variableslot",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "",
+                "description": "",
+                "operationId": "GET_nodes-node-variableslot",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/nodes/{node}/{slot}": {
+            "parameters": [
+                {
+                    "name": "node",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "slot",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "post": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "",
+                "description": "",
+                "operationId": "POST_nodes-node-slot",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "number"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "",
+                        "schema": {
+                            "type": "null"
+                        }
+                    },
+                    "404": {
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/nodes": {
+            "parameters": [],
+            "get": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "",
+                "description": "",
+                "operationId": "GET_nodes",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/nodeshort"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/nodes/{node}": {
+            "parameters": [
+                {
+                    "name": "node",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "",
+                "description": "",
+                "operationId": "GET_nodes-node",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/nodedescription"
+                        }
+                    },
+                    "404": {
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/events": {
+            "parameters": [],
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "",
+                "description": "",
+                "operationId": "GET_events",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "nodedescription": {
+            "type": "object",
+            "properties": {
+                "node": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "protocolVersion": {
+                    "type": "integer"
+                },
+                "aeslId": {
+                    "type": "integer"
+                },
+                "bytecodeSize": {
+                    "type": "integer"
+                },
+                "variablesSize": {
+                    "type": "integer"
+                },
+                "stackSize": {
+                    "type": "integer"
+                },
+                "namedVariables": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "localEvents": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "constants": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "events": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "nodeshort": {
+            "type": "object",
+            "properties": {
+                "node": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "protocolVersion": {
+                    "type": "integer"
+                },
+                "aeslId": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

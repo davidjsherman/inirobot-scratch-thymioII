@@ -1,0 +1,527 @@
+{
+    "swagger": "2.0",
+    "schemes": [
+        "http"
+    ],
+    "host": "localhost:3000",
+    "info": {
+        "version": "",
+        "title": "minimal",
+        "description": ""
+    },
+    "paths": {
+        "/events/{node}": {
+            "parameters": [
+                {
+                    "name": "node",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "",
+                "description": "",
+                "operationId": "GET_events-node",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "x-stoplight": {
+                    "id": "GET_events-node",
+                    "beforeScript": null,
+                    "afterScript": null,
+                    "public": true,
+                    "mock": {
+                        "enabled": false,
+                        "dynamic": false,
+                        "statusCode": 200
+                    }
+                }
+            }
+        },
+        "/reset": {
+            "parameters": [],
+            "get": {
+                "tags": [
+                    "Reset"
+                ],
+                "summary": "",
+                "description": "",
+                "operationId": "GET_reset",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "204": {
+                        "description": "",
+                        "schema": {
+                            "type": "null"
+                        }
+                    }
+                },
+                "x-stoplight": {
+                    "id": "GET_reset",
+                    "beforeScript": null,
+                    "afterScript": null,
+                    "public": true,
+                    "mock": {
+                        "enabled": false,
+                        "statusCode": 200
+                    }
+                }
+            }
+        },
+        "/nodes/{node}/{variableslot}": {
+            "parameters": [
+                {
+                    "name": "node",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "variableslot",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "",
+                "description": "",
+                "operationId": "GET_nodes-node-variableslot",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "x-stoplight": {
+                    "id": "GET_nodes-node-variableslot",
+                    "beforeScript": null,
+                    "afterScript": null,
+                    "public": true,
+                    "mock": {
+                        "enabled": false,
+                        "statusCode": 200
+                    }
+                }
+            }
+        },
+        "/nodes/{node}/{slot}": {
+            "parameters": [
+                {
+                    "name": "node",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "slot",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "post": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "",
+                "description": "",
+                "operationId": "POST_nodes-node-slot",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "number"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "",
+                        "schema": {
+                            "type": "null"
+                        }
+                    },
+                    "404": {
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "x-stoplight": {
+                    "id": "POST_nodes-node-slot",
+                    "beforeScript": null,
+                    "afterScript": null,
+                    "public": true,
+                    "mock": {
+                        "enabled": false,
+                        "statusCode": 200
+                    }
+                }
+            }
+        },
+        "/nodes": {
+            "parameters": [],
+            "get": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "",
+                "description": "",
+                "operationId": "GET_nodes",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/nodeshort"
+                            }
+                        }
+                    }
+                },
+                "x-stoplight": {
+                    "id": "GET_nodes",
+                    "beforeScript": null,
+                    "afterScript": null,
+                    "public": true,
+                    "mock": {
+                        "enabled": false,
+                        "statusCode": 200
+                    }
+                }
+            }
+        },
+        "/nodes/{node}": {
+            "parameters": [
+                {
+                    "name": "node",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "",
+                "description": "",
+                "operationId": "GET_nodes-node",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/nodedescription"
+                        }
+                    },
+                    "404": {
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "x-stoplight": {
+                    "id": "GET_nodes-node",
+                    "beforeScript": null,
+                    "afterScript": null,
+                    "public": true,
+                    "mock": {
+                        "enabled": false,
+                        "statusCode": 200
+                    }
+                }
+            }
+        },
+        "/events": {
+            "parameters": [],
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "",
+                "description": "",
+                "operationId": "GET_events",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "x-stoplight": {
+                    "id": "GET_events",
+                    "beforeScript": null,
+                    "afterScript": null,
+                    "public": true,
+                    "mock": {
+                        "enabled": false,
+                        "dynamic": false,
+                        "statusCode": 200
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "nodedescription": {
+            "type": "object",
+            "properties": {
+                "node": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "protocolVersion": {
+                    "type": "integer"
+                },
+                "aeslId": {
+                    "type": "integer"
+                },
+                "bytecodeSize": {
+                    "type": "integer"
+                },
+                "variablesSize": {
+                    "type": "integer"
+                },
+                "stackSize": {
+                    "type": "integer"
+                },
+                "namedVariables": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "localEvents": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "constants": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "events": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            },
+            "x-stoplight": {
+                "id": "nodedescription",
+                "name": "nodeDescription",
+                "summary": "",
+                "description": "",
+                "public": true
+            }
+        },
+        "nodeshort": {
+            "type": "object",
+            "properties": {
+                "node": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "protocolVersion": {
+                    "type": "integer"
+                },
+                "aeslId": {
+                    "type": "integer"
+                }
+            },
+            "x-stoplight": {
+                "id": "nodeshort",
+                "name": "nodeShort",
+                "summary": "",
+                "description": "",
+                "public": true
+            }
+        }
+    },
+    "x-stoplight": {
+        "beforeScript": "",
+        "afterScript": "",
+        "version": {
+            "groups": {
+                "docs": [
+                    {
+                        "name": "Events",
+                        "items": [
+                            {
+                                "_id": "GET_events",
+                                "type": "endpoints"
+                            },
+                            {
+                                "_id": "GET_events-node",
+                                "type": "endpoints"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Nodes",
+                        "items": [
+                            {
+                                "_id": "GET_nodes-node-variableslot",
+                                "type": "endpoints"
+                            },
+                            {
+                                "_id": "POST_nodes-node-slot",
+                                "type": "endpoints"
+                            },
+                            {
+                                "_id": "GET_nodes",
+                                "type": "endpoints"
+                            },
+                            {
+                                "_id": "GET_nodes-node",
+                                "type": "endpoints"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Reset",
+                        "items": [
+                            {
+                                "_id": "GET_reset",
+                                "type": "endpoints"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Models",
+                        "description": "Models make up the core input and ouput structures in this API. They are used in endpoint request and response bodies.",
+                        "items": [
+                            {
+                                "_id": "nodedescription",
+                                "type": "schemas"
+                            },
+                            {
+                                "_id": "nodeshort",
+                                "type": "schemas"
+                            }
+                        ]
+                    }
+                ],
+                "utilFuncs": []
+            }
+        },
+        "functions": {
+            "mapPath": {
+                "name": "mapPath",
+                "description": "",
+                "script": "function (ctx, request, originSubpath, targetSubpath) {\n  // for example, mapPath(ctx, request, \"users\", \"members\") \n  // will rewrite an incoming request from /users/123 to /members/123.\n  var path = request.url.path.get();\n  if (path.indexOf(originSubpath) !== -1) {\n     path.replace(originSubpath, targetSubpath);\n     request.url.path.set(path);\n  }\n}"
+            },
+            "addRandomLatency": {
+                "name": "addRandomLatency",
+                "description": "",
+                "script": "function (min, max) {\n  SL.sleep(SL.rand(min, max))\n}"
+            },
+            "queryStringMocking": {
+                "name": "queryStringMocking",
+                "description": "",
+                "script": "function (ctx, request) {\n  // For example, adding ?mock=200 to a request url will enable mocking,\n  // using the example endpoint response for the 200 status code.\n  var mock = request.url.query.get(\"mock\")\n  if (mock) {\n    ctx.mock.set(true, mock)\n  }\n}"
+            },
+            "hijackWithValidationErrors": {
+                "name": "hijackWithValidationErrors",
+                "description": "",
+                "script": "function (ctx, request) {\n  var messages = request.validate();\n  \n  // did the request validation fail?\n  if (!request.valid.get()) {\n    // respond immediately with the validation error messages\n    // this request will never hit the end api server\n    request.hijack(400, \"application/json\", messages)\n  }\n}"
+            }
+        },
+        "textSections": {},
+        "mock": {
+            "enabled": false,
+            "dynamic": false
+        }
+    }
+}
