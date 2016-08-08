@@ -1,0 +1,12 @@
+    PROJECT_NAME           = "Aesl Program"
+    EXTENSION_MAPPING      = aesl=C++
+    INPUT_FILTER           = ./aesl-doxygen.perl
+    EXTRACT_PRIVATE        = YES
+    HIDE_SCOPE_NAMES       = YES
+    USE_MATHJAX            = YES
+    FILE_PATTERNS          = *.aesl
+    INPUT                  = 
+    MATHJAX_RELPATH        = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+    GENERATE_HTML          = YES
+    GENERATE_XML           = YES
+    XML_PROGRAMLISTING     = NO
