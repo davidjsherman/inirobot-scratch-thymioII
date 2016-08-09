@@ -758,49 +758,7 @@
           "Queue"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "Qid %n %n %n %n\n\nEndpoint Qid variable slot with 4 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-Qid",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 4,
-              "minItems": 4,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot Qid",
-        "tags": [
-          "Queue"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/Qnx": {
       "get": {
@@ -840,49 +798,7 @@
           "Queue"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "Qnx %n\n\nEndpoint Qnx variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-Qnx",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot Qnx",
-        "tags": [
-          "Queue"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/Qpc": {
       "get": {
@@ -922,49 +838,7 @@
           "Queue"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "Qpc %n\n\nEndpoint Qpc variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-Qpc",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot Qpc",
-        "tags": [
-          "Queue"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/QspL": {
       "get": {
@@ -1007,49 +881,7 @@
           "Queue"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "QspL %n %n %n %n\n\nEndpoint QspL variable slot with 4 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-QspL",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 4,
-              "minItems": 4,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot QspL",
-        "tags": [
-          "Queue"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/QspR": {
       "get": {
@@ -1092,49 +924,7 @@
           "Queue"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "QspR %n %n %n %n\n\nEndpoint QspR variable slot with 4 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-QspR",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 4,
-              "minItems": 4,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot QspR",
-        "tags": [
-          "Queue"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/Qtime": {
       "get": {
@@ -1177,49 +967,7 @@
           "Queue"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "Qtime %n %n %n %n\n\nEndpoint Qtime variable slot with 4 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-Qtime",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 4,
-              "minItems": 4,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot Qtime",
-        "tags": [
-          "Queue"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/R_state": {
       "get": {
@@ -1285,49 +1033,7 @@
           "State"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "R_state %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n\n\nEndpoint R_state variable slot with 27 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-R_state",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 27,
-              "minItems": 27,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot R_state",
-        "tags": [
-          "State"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/R_state.do": {
       "get": {
@@ -1896,49 +1602,7 @@
           "Reporters"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "angle.back %n\n\nEndpoint angle.back variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-angle.back",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot angle.back",
-        "tags": [
-          "Reporters"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/angle.front": {
       "get": {
@@ -1978,49 +1642,7 @@
           "Reporters"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "angle.front %n\n\nEndpoint angle.front variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-angle.front",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot angle.front",
-        "tags": [
-          "Reporters"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/angle.ground": {
       "get": {
@@ -2060,49 +1682,7 @@
           "Reporters"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "angle.ground %n\n\nEndpoint angle.ground variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-angle.ground",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot angle.ground",
-        "tags": [
-          "Reporters"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/button.backward": {
       "get": {
@@ -2342,49 +1922,7 @@
           "Reporters"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "distance.back %n\n\nEndpoint distance.back variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-distance.back",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot distance.back",
-        "tags": [
-          "Reporters"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/distance.front": {
       "get": {
@@ -2424,49 +1962,7 @@
           "Reporters"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "distance.front %n\n\nEndpoint distance.front variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-distance.front",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot distance.front",
-        "tags": [
-          "Reporters"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/event.args": {
       "get": {
@@ -3021,49 +2517,7 @@
           "Odometry"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "odo.degree %n\n\nEndpoint odo.degree variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-odo.degree",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot odo.degree",
-        "tags": [
-          "Odometry"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/odo.delta": {
       "get": {
@@ -3103,49 +2557,7 @@
           "Odometry"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "odo.delta %n\n\nEndpoint odo.delta variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-odo.delta",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot odo.delta",
-        "tags": [
-          "Odometry"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/odo.theta": {
       "get": {
@@ -3185,49 +2597,7 @@
           "Odometry"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "odo.theta %n\n\nEndpoint odo.theta variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-odo.theta",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot odo.theta",
-        "tags": [
-          "Odometry"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/odo.x": {
       "get": {
@@ -3267,49 +2637,7 @@
           "Odometry"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "odo.x %n\n\nEndpoint odo.x variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-odo.x",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot odo.x",
-        "tags": [
-          "Odometry"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/odo.y": {
       "get": {
@@ -3349,49 +2677,7 @@
           "Odometry"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "odo.y %n\n\nEndpoint odo.y variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-odo.y",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot odo.y",
-        "tags": [
-          "Odometry"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/prox.comm.rx": {
       "get": {

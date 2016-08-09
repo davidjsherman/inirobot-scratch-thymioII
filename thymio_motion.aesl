@@ -78,12 +78,12 @@ var tmp[9]
 ##! The button LEDs show the values of @c Qpc qnd @c Qnx.
 ##! The subroutines @c motion_add and @c motion cancel are called from the @c Q_* events in @ref Motion.
 ##! @{
-var Qid[QUEUE]   = [ 0,0,0,0 ] ##!&lt; task id
-var Qtime[QUEUE] = [ 0,0,0,0 ] ##!&lt; remaining time
-var QspL[QUEUE]  = [ 0,0,0,0 ] ##!&lt; motor speed L
-var QspR[QUEUE]  = [ 0,0,0,0 ] ##!&lt; motor speed R
-var Qpc = 0                    ##!&lt; program counter
-var Qnx = 0                    ##!&lt; next pc
+var Qid[QUEUE]   = [ 0,0,0,0 ] ##!&lt; [out] task id
+var Qtime[QUEUE] = [ 0,0,0,0 ] ##!&lt; [out] remaining time
+var QspL[QUEUE]  = [ 0,0,0,0 ] ##!&lt; [out] motor speed L
+var QspR[QUEUE]  = [ 0,0,0,0 ] ##!&lt; [out] motor speed R
+var Qpc = 0                    ##!&lt; [out] program counter
+var Qnx = 0                    ##!&lt; [out] next pc
 
 ##! @}
 
@@ -98,11 +98,11 @@ var Qnx = 0                    ##!&lt; next pc
 ##! millimeters and the angles are very approximately in degrees.
 ##! These reporters are updated at 20 Hz by the @c button event.
 ##! @{
-var distance.front = 190 ##!&lt;  distance front
-var distance.back  = 125 ##!&lt;  distance back
-var angle.front    = 0 ##!&lt;  angle front
-var angle.back     = 0 ##!&lt;  angle back
-var angle.ground   = 0 ##!&lt;  angle ground
+var distance.front = 190 ##!&lt;  [out] distance front
+var distance.back  = 125 ##!&lt;  [out] distance back
+var angle.front    = 0 ##!&lt;  [out] angle front
+var angle.back     = 0 ##!&lt;  [out] angle back
+var angle.ground   = 0 ##!&lt;  [out] angle ground
 
 ##! @}
 
@@ -120,11 +120,11 @@ var angle.ground   = 0 ##!&lt;  angle ground
 ##! @f[ y \,+\!\!= k_2 \Delta \sin\theta @f]
 ##! where @f$ b=95 @f$ mm is the wheelbase, and constants @f$ k_1=32.36 @f$, @f$ k_2=6.78\times10^{-7} @f$ scale to and from Aseba radians.
 ##! @{
-var odo.delta ##!&lt; @private instantaneous speed difference
-var odo.theta = 0 ##!&lt; odometer current angle
-var odo.x = 0 ##!&lt; odometer x
-var odo.y = 0 ##!&lt; odometer y
-var odo.degree ##!&lt; odometer direction
+var odo.delta ##!&lt; [out] @private instantaneous speed difference
+var odo.theta = 0 ##!&lt; [out] odometer current angle
+var odo.x = 0 ##!&lt; [out] odometer x
+var odo.y = 0 ##!&lt; [out] odometer y
+var odo.degree ##!&lt; [out] odometer direction
 
 ##! @}
 
@@ -154,7 +154,7 @@ var odo.degree ##!&lt; odometer direction
 ##! 4 | 8-15  | @c distance.back                  |       |     | @c
 
 var R_state.do = 1 ##!&lt; flag for R_state broadcast
-var R_state[27] ##!&lt; compressed robot state
+var R_state[27] ##!&lt; [out] compressed robot state
 
 ##! @}
 

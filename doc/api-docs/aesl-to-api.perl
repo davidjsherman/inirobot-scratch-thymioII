@@ -703,7 +703,7 @@ sub get_nodes {
 	$brief = '';
 	@param = ();
       }
-      if ($line =~  m{^\s* var \s+ ([[:alnum:]\_\.]+) (?:\[(.*?)\])? (?: .*?\#\#\!\s* \[(\w+)\])? }gsmx) {
+      if ($line =~  m{^\s* var \s+ ([[:alnum:]\_\.]+) (?:\[(.*?)\])? (?: .*?\#\#\!\&lt;\s* \[(\w+)\])? }gsmx) {
 	my $var = $1;
 	(my $size = $2) ||= '1';
 	(my $direction = $3) ||= 'in,out';
