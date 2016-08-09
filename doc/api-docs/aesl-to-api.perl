@@ -69,11 +69,10 @@ foreach my $node (@$nodes) {
     }
     (my $brief = $handledEvents{$ev}->{brief}) ||= join(" ", $ev, ("%n") x $events{$ev});
 
-    #print STDERR "node $route_name endpoint $endpoint : handled event $ev = $brief\n";
     $oas->{paths}->{$endpoint} ||= dclone($ev_slot);
     $oas->{paths}->{$endpoint}->{post}->{summary} = "update slot $ev";
-    $oas->{paths}->{$endpoint}->{post}->{tags} = [ $handledEvents->{$ev}->{group} ]
-      if (defined $handledEvents->{$ev}->{group});
+    $oas->{paths}->{$endpoint}->{post}->{tags} = [ $handledEvents{$ev}->{group} ]
+      if (defined $handledEvents{$ev}->{group});
     $oas->{paths}->{$endpoint}->{post}->{description} =
       $brief  # first description line is Scratch block definition
       . "\n\n"
@@ -645,17 +644,19 @@ sub get_nodes {
 	# print STDERR "found param $1 in ",$line,"\n";
       }
       if ($line =~ m{^\s* \#\#\! \s* \@defgroup \s+ ([[:alnum:]\_\.]+) .*? }gsmx) {
-	$defgroup = $1
+	$defgroup = $1;
 	# print STDERR "found defgroup $1 in ",$line,"\n";
       }
       if ($line =~ m{^\s* \#\#\! \s* \@\} .*? }gsmx) {
-	$defgroup = ''
+	# print STDERR "stop defgroup in ",$line,"\n";
+	$defgroup = '';
       }
       if ($line =~ m{^\s* onevent \s+ ([[:alnum:]\_\.]+) }gsmx) {
 	my $name = $1;
 	$brief ||= join(' ', $name, ('%n') x scalar(@param));
 	$node->{'handledEvents'}->{$name} = { 'brief'=>$brief, 'param'=>[@param], 'size'=>scalar(@param) };
 	$node->{'handledEvents'}->{$name}->{group} = $defgroup if $defgroup;
+	# print STDERR "handledEvent $name group $defgroup brief $brief\n";
 	$brief = '';
 	@param = ();
       }
@@ -666,6 +667,7 @@ sub get_nodes {
 	$node->{'namedVariables'}->{$var} = { 'size'=>$size };
 	$node->{'namedVariables'}->{$var}->{group} = $defgroup if $defgroup;
 	# print STDERR "namedVariable $var ",Dumper($node->{'namedVariables'}->{$var});
+	# print STDERR "namedVariable $var size $size group $defgroup\n";
       }
     }
     
