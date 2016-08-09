@@ -134,7 +134,7 @@ sub functionize {
 
 sub Doxyfile {
   my $aesl_file = shift;
-  $aesl_file = '' unless ($aesl_file and -s $aesl_file);
+  $aesl_file = $aesl unless ($aesl_file and -s $aesl_file);
   return <<"EOF";
     PROJECT_NAME           = "Aesl Program"
     EXTENSION_MAPPING      = aesl=C++
