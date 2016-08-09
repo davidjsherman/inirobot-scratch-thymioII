@@ -1,25 +1,37 @@
 #!/usr/bin/perl -w
 
+use XML::XPath;
+use XML::XPath::XMLParser;
 use JSON::PP;
 use Storable qw(dclone);
 use Data::Dumper; $Data::Dumper::Indent = 1;
 use Getopt::Long;
 
 my $template = 'minimal.json';
+my $use_names = 0;
 my $help = 0;
 GetOptions( 'template=s' => \$template,
+	    'usenames!' => \$use_names,
 	    'help!' => \$help,
 	  );
 
 if ($help) {
-  print "Usage: $0 [--template=minimal.json] [--help]\n";
+  print "Usage: $0 [--template=TEMPLATE.json] [--help] PROGRAM.aesl\n";
   exit(1);
 }
+(my $aesl_file = shift) ||= 'vmcode.aesl';
 
 my $coder = JSON::PP->new->ascii->pretty->allow_nonref;
-my $nodes = $coder->decode( join('',<>) );
-$nodes = [ $nodes ]
-  if (ref($nodes) eq 'HASH');
+
+my $xp = XML::XPath->new(filename => $aesl_file);
+my $eventset = $xp->find('/network/event');
+my $constantset = $xp->find('/network/constant');
+my $nodeset = $xp->find('/network/node');
+
+my %events = get_events($eventset);
+my %constants = get_constants($constantset);
+
+my $nodes = get_nodes($nodeset);
 @unique_names = sort keys { map { $_->{name} => 1 } @$nodes };
 @sorted_ids = sort { $a<=>$b } map { $_->{node} } @$nodes;
 
@@ -45,30 +57,40 @@ my $ev_slot = $oas->{paths}->{'/nodes/{node}/{slot}'};
 my $va_slot = $oas->{paths}->{'/nodes/{node}/{variableslot}'};
 
 foreach my $node (@$nodes) {
-  my %events = %{$node->{events}};
   my %variables = %{$node->{namedVariables}};
-  # print STDERR "Node ",$node->{node},"\n\tevents ",join(" ",sort keys %events),"\n\tvariables ",join(" ",sort keys %variables),"\n";
-  foreach my $ev ( sort keys %events ) {
-    my $endpoint = "/nodes/$node->{node}/$ev";
+  my %handledEvents = %{$node->{handledEvents}};
+  my $route_name = ($use_names ? $node->{name} : $node->{node});
+  # print STDERR "Node ",$route_name,"\n\tevents ",join(" ",sort keys %events),"\n\tvariables ",join(" ",sort keys %variables),"\n";
+  foreach my $ev ( sort keys %handledEvents ) {
+    my $endpoint = "/nodes/$route_name/$ev";
+    if (!defined($events{$ev}) or !$handledEvents{$ev}->{brief}) {
+      #warn("skipping unknown or undocumented event $ev\n");
+      next;
+    }
+    (my $brief = $handledEvents{$ev}->{brief}) ||= join(" ", $ev, ("%n") x $events{$ev});
+
+    #print STDERR "node $route_name endpoint $endpoint : handled event $ev = $brief\n";
     $oas->{paths}->{$endpoint} ||= dclone($ev_slot);
+    $oas->{paths}->{$endpoint}->{post}->{summary} = "update slot $ev";
     $oas->{paths}->{$endpoint}->{post}->{description} =
-      join(" ", $ev, ("%n") x $events{$ev})  # first description line is Scratch block definition
+      $brief  # first description line is Scratch block definition
       . "\n\n"
       . "Endpoint $ev event slot with $events{$ev} parameters discovered in AESL file";
-    $oas->{paths}->{$endpoint}->{post}->{operationId} = "POST_nodes-$node->{node}-$ev";
+    $oas->{paths}->{$endpoint}->{post}->{operationId} = "POST_nodes-$route_name-$ev";
     $oas->{paths}->{$endpoint}->{post}->{parameters}->[0]->{schema}->{minItems} = int($events{$ev});
     $oas->{paths}->{$endpoint}->{post}->{parameters}->[0]->{schema}->{maxItems} = int($events{$ev});
     $oas->{paths}->{$endpoint}->{parameters} = [ grep { ($_->{name} ne 'slot') and ($_->{name} ne 'node') }
 						 @{$oas->{paths}->{$endpoint}->{parameters}} ];
   }
   foreach my $va ( sort keys %variables ) {
-    my $endpoint = "/nodes/$node->{node}/$va";
+    my $endpoint = "/nodes/$route_name/$va";
     $oas->{paths}->{$endpoint} ||= dclone($va_slot);
+    $oas->{paths}->{$endpoint}->{get}->{summary} = "read slot $va";
     $oas->{paths}->{$endpoint}->{get}->{description} =
       join(" ", $va)  # first description line is Scratch reporter definition
       . "\n\n"
       . "Endpoint $va variable slot of size $variables{$va} discovered in AESL file";
-    $oas->{paths}->{$endpoint}->{get}->{operationId} = "GET_nodes-$node->{node}-$va";
+    $oas->{paths}->{$endpoint}->{get}->{operationId} = "GET_nodes-$route_name-$va";
     $oas->{paths}->{$endpoint}->{get}->{responses}->{"200"}->{schema}->{minItems} = int($variables{$va});
     $oas->{paths}->{$endpoint}->{get}->{responses}->{"200"}->{schema}->{maxItems} = int($variables{$va});
     $oas->{paths}->{$endpoint}->{get}->{responses}->{"200"}->{examples}->{"application/json"} = [ (0) x int($variables{$va})];
@@ -546,4 +568,86 @@ sub hardcoded_template {
 }
 EOF
   return $coder->decode($hardcoded);
+}
+
+sub get_events {
+  my $eventset = shift;
+  my %these_events;
+  foreach my $ev ($eventset->get_nodelist) {
+    my $size = $ev->getAttribute('size');
+    my $name = $ev->getAttribute('name') or next;
+    $these_events{$name} = $size;
+  }
+  return %these_events;
+}
+
+sub get_constants {
+  my $constantset = shift;
+  my %these_constants;
+  foreach my $co ($constantset->get_nodelist) {
+    my $value = $co->getAttribute('value') or next;
+    my $name = $co->getAttribute('name') or next;
+    $these_constants{$name} = $value;
+  }
+  return %these_constants;
+}
+
+sub get_nodes {
+  my $nodeset = shift;
+  my $these_nodes = [];
+  foreach my $no ($nodeset->get_nodelist) {
+    my $nodeid = $no->getAttribute('nodeId') or next;
+    my $name = $no->getAttribute('name') or next;
+    my $node = { 'node' => $nodeid, 'name' => $name };
+
+    my %std_vars;
+    %std_vars = ("acc"=>'3', "button.backward"=>'1', "button.center"=>'1',
+		 "button.forward"=>'1', "button.left"=>'1', "button.right"=>'1',
+		 "event.args"=>'32', "event.source"=>'1', "mic.intensity"=>'1',
+		 "mic.threshold"=>'1', "motor.left.pwm"=>'1', "motor.left.speed"=>'1',
+		 "motor.left.target"=>'1', "motor.right.pwm"=>'1',
+		 "motor.right.speed"=>'1', "motor.right.target"=>'1', "prox.comm.rx"=>'1',
+		 "prox.comm.tx"=>'1', "prox.ground.ambiant"=>'2',
+		 "prox.ground.delta"=>'2', "prox.ground.reflected"=>'2',
+		 "prox.horizontal"=>'7', "rc5.address"=>'1', "rc5.command"=>'1',
+		 "temperature"=>'1', "timer.period"=>'2')
+      if ($name =~ /^thymio/i);    
+    %std_vars = ("args"=>'32', "id"=>'1', "source"=>'1')
+      if ($name =~ /^dummynode/i);
+    
+    my $program = XML::XPath::XMLParser::as_string($no);
+    while ($program =~ m{^\s* var \s+ ([[:alnum:]\_\.]+) (?:\[(.*?)\])? }gsmx) {
+      my $var = $1;
+      (my $size = $2) ||= '1';
+      $size = $constants{$size} if (defined $constants{$size});
+      $node->{'namedVariables'}->{$var} = $size;
+    }
+    $node->{'namedVariables'}->{$_} = $std_vars{$_}
+      foreach (keys %std_vars);
+
+    my $brief = '';
+    my @param = ();
+    foreach my $line (split /\n/, $program) {
+      if ($line =~ m{^\s* \#\#\! \s* \@brief \s+ (.+) }gsmx) {
+	$brief = $1;
+	$brief =~ s{\\%}{%}g;
+	@param = ();
+	# print STDERR "found brief $brief in ",$line,"\n";
+      }
+      if ($line =~ m{^\s* \#\#\! \s* \@param \s+ ([[:alnum:]\_\.]+) .*? }gsmx) {
+	push @param, $1;
+	# print STDERR "found param $1 in ",$line,"\n";
+      }
+      if ($line =~ m{^\s* onevent \s+ ([[:alnum:]\_\.]+) }gsmx) {
+	my $name = $1;
+	$brief ||= join(' ', $name, ('%n') x scalar(@param));
+	$node->{'handledEvents'}->{$name} = { 'brief'=>$brief, 'param'=>[@param], 'size'=>scalar(@param) };
+	$brief = '';
+	@param = ();
+      }
+    }
+    
+    push @$these_nodes, $node;
+  }
+  return $these_nodes;
 }
