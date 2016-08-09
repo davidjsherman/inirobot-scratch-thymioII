@@ -68,7 +68,7 @@ foreach my $node (@$nodes) {
       next;
     }
     (my $brief = $handledEvents{$ev}->{brief}) ||= join(" ", $ev, ("%n") x $events{$ev});
-
+    # event slots can be updated
     $oas->{paths}->{$endpoint} ||= dclone($ev_slot);
     $oas->{paths}->{$endpoint}->{post}->{summary} = "update slot $ev";
     $oas->{paths}->{$endpoint}->{post}->{tags} = [ $handledEvents{$ev}->{group} ]
@@ -86,6 +86,7 @@ foreach my $node (@$nodes) {
   foreach my $va ( sort keys %variables ) {
     # print STDERR "namedVariable $va ",Dumper($variables{$va});
     my $endpoint = "/nodes/$route_name/$va";
+    # variable slots can be read
     $oas->{paths}->{$endpoint} ||= dclone($va_slot);
     $oas->{paths}->{$endpoint}->{get}->{summary} = "read slot $va";
     $oas->{paths}->{$endpoint}->{get}->{tags} = [ $variables{$va}->{group} ]
@@ -100,6 +101,21 @@ foreach my $node (@$nodes) {
     $oas->{paths}->{$endpoint}->{get}->{responses}->{"200"}->{examples}->{"application/json"} = [ (0) x int($variables{$va}->{size})];
     $oas->{paths}->{$endpoint}->{parameters} = [ grep { ($_->{name} ne 'variableslot') and ($_->{name} ne 'node') }
   						 @{$oas->{paths}->{$endpoint}->{parameters}} ];
+    # variable slots can also be updated
+    $oas->{paths}->{$endpoint}->{post} ||= dclone($ev_slot->{post});
+    my $brief = join(" ", $va, ("%n") x int($variables{$va}->{size}));
+    $oas->{paths}->{$endpoint}->{post}->{summary} = "update slot $va";
+    $oas->{paths}->{$endpoint}->{post}->{tags} = [ $variables{$va}->{group} ]
+      if (defined $variables{$va}->{group});
+    $oas->{paths}->{$endpoint}->{post}->{description} =
+      $brief  # first description line is Scratch block definition
+      . "\n\n"
+      . "Endpoint $va variable slot with $variables{$va}->{size} parameters discovered in AESL file";
+    $oas->{paths}->{$endpoint}->{post}->{operationId} = "POST_nodes-$route_name-$va";
+    $oas->{paths}->{$endpoint}->{post}->{parameters}->[0]->{schema}->{minItems} = int($variables{$va}->{size});
+    $oas->{paths}->{$endpoint}->{post}->{parameters}->[0]->{schema}->{maxItems} = int($variables{$va}->{size});
+    $oas->{paths}->{$endpoint}->{parameters} = [ grep { ($_->{name} ne 'slot') and ($_->{name} ne 'node') }
+						 @{$oas->{paths}->{$endpoint}->{parameters}} ];
   }
 
   # remove generic routes if specific ones were found
