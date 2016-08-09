@@ -101,6 +101,10 @@ foreach my $node (@$nodes) {
     $oas->{paths}->{$endpoint}->{parameters} = [ grep { ($_->{name} ne 'variableslot') and ($_->{name} ne 'node') }
   						 @{$oas->{paths}->{$endpoint}->{parameters}} ];
   }
+
+  # remove generic routes if specific ones were found
+  delete $oas->{paths}->{'/nodes/{node}/{slot}'} if (keys %handledEvents > 1);
+  delete $oas->{paths}->{'/nodes/{node}/{variableslot}'} if (keys %variables > 1);
 }
   
 $pp = $coder->pretty->encode( $oas );
@@ -626,9 +630,11 @@ sub get_nodes {
     #   $size = $constants{$size} if (defined $constants{$size});
     #   $node->{'namedVariables'}->{$var} = $size;
     # }
-    $node->{'namedVariables'}->{$_}->{size} = $std_vars{$_}
-      foreach (keys %std_vars);
-
+    foreach (keys %std_vars) {
+      $node->{'namedVariables'}->{$_}->{size} = $std_vars{$_};
+	$node->{'namedVariables'}->{$_}->{group} = 'Builtin';
+      }
+    
     my $brief = '';
     my @param = ();
     my $defgroup = '';

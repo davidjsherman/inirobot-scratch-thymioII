@@ -1517,7 +1517,7 @@
         },
         "summary": "read slot acc",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -1677,7 +1677,7 @@
         },
         "summary": "read slot button.backward",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -1717,7 +1717,7 @@
         },
         "summary": "read slot button.center",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -1757,7 +1757,7 @@
         },
         "summary": "read slot button.forward",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -1797,7 +1797,7 @@
         },
         "summary": "read slot button.left",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -1837,7 +1837,7 @@
         },
         "summary": "read slot button.right",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -1988,7 +1988,7 @@
         },
         "summary": "read slot event.args",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2028,7 +2028,7 @@
         },
         "summary": "read slot event.source",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2068,7 +2068,7 @@
         },
         "summary": "read slot mic.intensity",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2108,7 +2108,7 @@
         },
         "summary": "read slot mic.threshold",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2148,7 +2148,7 @@
         },
         "summary": "read slot motor.left.pwm",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2188,7 +2188,7 @@
         },
         "summary": "read slot motor.left.speed",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2228,7 +2228,7 @@
         },
         "summary": "read slot motor.left.target",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2268,7 +2268,7 @@
         },
         "summary": "read slot motor.right.pwm",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2308,7 +2308,7 @@
         },
         "summary": "read slot motor.right.speed",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2348,7 +2348,7 @@
         },
         "summary": "read slot motor.right.target",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2588,7 +2588,7 @@
         },
         "summary": "read slot prox.comm.rx",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2628,7 +2628,7 @@
         },
         "summary": "read slot prox.comm.tx",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2669,7 +2669,7 @@
         },
         "summary": "read slot prox.ground.ambiant",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2710,7 +2710,7 @@
         },
         "summary": "read slot prox.ground.delta",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2751,7 +2751,7 @@
         },
         "summary": "read slot prox.ground.reflected",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2797,7 +2797,7 @@
         },
         "summary": "read slot prox.horizontal",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2837,7 +2837,7 @@
         },
         "summary": "read slot rc5.address",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2877,7 +2877,7 @@
         },
         "summary": "read slot rc5.command",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2917,7 +2917,7 @@
         },
         "summary": "read slot temperature",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -2958,7 +2958,7 @@
         },
         "summary": "read slot timer.period",
         "tags": [
-          "Nodes"
+          "Builtin"
         ]
       },
       "parameters": []
@@ -3106,108 +3106,6 @@
         {
           "in": "path",
           "name": "node",
-          "required": true,
-          "type": "string"
-        }
-      ]
-    },
-    "/nodes/{node}/{slot}": {
-      "parameters": [
-        {
-          "in": "path",
-          "name": "node",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "in": "path",
-          "name": "slot",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "assign to variable slot or emit event with given payload",
-        "operationId": "POST_nodes-node-slot",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot",
-        "tags": [
-          "Nodes"
-        ]
-      }
-    },
-    "/nodes/{node}/{variableslot}": {
-      "get": {
-        "consumes": [],
-        "description": "read values from variable slot",
-        "operationId": "GET_nodes-node-variableslot",
-        "parameters": [],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "variable slot",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "type": "array"
-            }
-          },
-          "404": {
-            "description": "no such variable slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "read slot",
-        "tags": [
-          "Nodes"
-        ]
-      },
-      "parameters": [
-        {
-          "in": "path",
-          "name": "node",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "in": "path",
-          "name": "variableslot",
           "required": true,
           "type": "string"
         }
