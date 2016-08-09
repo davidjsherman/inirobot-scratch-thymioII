@@ -72,6 +72,8 @@ foreach my $node (@$nodes) {
     #print STDERR "node $route_name endpoint $endpoint : handled event $ev = $brief\n";
     $oas->{paths}->{$endpoint} ||= dclone($ev_slot);
     $oas->{paths}->{$endpoint}->{post}->{summary} = "update slot $ev";
+    $oas->{paths}->{$endpoint}->{post}->{tags} = [ $handledEvents->{$ev}->{group} ]
+      if (defined $handledEvents->{$ev}->{group});
     $oas->{paths}->{$endpoint}->{post}->{description} =
       $brief  # first description line is Scratch block definition
       . "\n\n"
@@ -83,17 +85,20 @@ foreach my $node (@$nodes) {
 						 @{$oas->{paths}->{$endpoint}->{parameters}} ];
   }
   foreach my $va ( sort keys %variables ) {
+    # print STDERR "namedVariable $va ",Dumper($variables{$va});
     my $endpoint = "/nodes/$route_name/$va";
     $oas->{paths}->{$endpoint} ||= dclone($va_slot);
     $oas->{paths}->{$endpoint}->{get}->{summary} = "read slot $va";
+    $oas->{paths}->{$endpoint}->{get}->{tags} = [ $variables{$va}->{group} ]
+      if (defined $variables{$va}->{group});
     $oas->{paths}->{$endpoint}->{get}->{description} =
       join(" ", $va)  # first description line is Scratch reporter definition
       . "\n\n"
-      . "Endpoint $va variable slot of size $variables{$va} discovered in AESL file";
+      . "Endpoint $va variable slot of size $variables{$va}->{size} discovered in AESL file";
     $oas->{paths}->{$endpoint}->{get}->{operationId} = "GET_nodes-$route_name-$va";
-    $oas->{paths}->{$endpoint}->{get}->{responses}->{"200"}->{schema}->{minItems} = int($variables{$va});
-    $oas->{paths}->{$endpoint}->{get}->{responses}->{"200"}->{schema}->{maxItems} = int($variables{$va});
-    $oas->{paths}->{$endpoint}->{get}->{responses}->{"200"}->{examples}->{"application/json"} = [ (0) x int($variables{$va})];
+    $oas->{paths}->{$endpoint}->{get}->{responses}->{"200"}->{schema}->{minItems} = int($variables{$va}->{size});
+    $oas->{paths}->{$endpoint}->{get}->{responses}->{"200"}->{schema}->{maxItems} = int($variables{$va}->{size});
+    $oas->{paths}->{$endpoint}->{get}->{responses}->{"200"}->{examples}->{"application/json"} = [ (0) x int($variables{$va}->{size})];
     $oas->{paths}->{$endpoint}->{parameters} = [ grep { ($_->{name} ne 'variableslot') and ($_->{name} ne 'node') }
   						 @{$oas->{paths}->{$endpoint}->{parameters}} ];
   }
@@ -616,17 +621,18 @@ sub get_nodes {
       if ($name =~ /^dummynode/i);
     
     my $program = XML::XPath::XMLParser::as_string($no);
-    while ($program =~ m{^\s* var \s+ ([[:alnum:]\_\.]+) (?:\[(.*?)\])? }gsmx) {
-      my $var = $1;
-      (my $size = $2) ||= '1';
-      $size = $constants{$size} if (defined $constants{$size});
-      $node->{'namedVariables'}->{$var} = $size;
-    }
-    $node->{'namedVariables'}->{$_} = $std_vars{$_}
+    # while ($program =~ m{^\s* var \s+ ([[:alnum:]\_\.]+) (?:\[(.*?)\])? }gsmx) {
+    #   my $var = $1;
+    #   (my $size = $2) ||= '1';
+    #   $size = $constants{$size} if (defined $constants{$size});
+    #   $node->{'namedVariables'}->{$var} = $size;
+    # }
+    $node->{'namedVariables'}->{$_}->{size} = $std_vars{$_}
       foreach (keys %std_vars);
 
     my $brief = '';
     my @param = ();
+    my $defgroup = '';
     foreach my $line (split /\n/, $program) {
       if ($line =~ m{^\s* \#\#\! \s* \@brief \s+ (.+) }gsmx) {
 	$brief = $1;
@@ -638,12 +644,28 @@ sub get_nodes {
 	push @param, $1;
 	# print STDERR "found param $1 in ",$line,"\n";
       }
+      if ($line =~ m{^\s* \#\#\! \s* \@defgroup \s+ ([[:alnum:]\_\.]+) .*? }gsmx) {
+	$defgroup = $1
+	# print STDERR "found defgroup $1 in ",$line,"\n";
+      }
+      if ($line =~ m{^\s* \#\#\! \s* \@\} .*? }gsmx) {
+	$defgroup = ''
+      }
       if ($line =~ m{^\s* onevent \s+ ([[:alnum:]\_\.]+) }gsmx) {
 	my $name = $1;
 	$brief ||= join(' ', $name, ('%n') x scalar(@param));
 	$node->{'handledEvents'}->{$name} = { 'brief'=>$brief, 'param'=>[@param], 'size'=>scalar(@param) };
+	$node->{'handledEvents'}->{$name}->{group} = $defgroup if $defgroup;
 	$brief = '';
 	@param = ();
+      }
+      if ($line =~  m{^\s* var \s+ ([[:alnum:]\_\.]+) (?:\[(.*?)\])? }gsmx) {
+	my $var = $1;
+	(my $size = $2) ||= '1';
+	$size = $constants{$size} if (defined $constants{$size});
+	$node->{'namedVariables'}->{$var} = { 'size'=>$size };
+	$node->{'namedVariables'}->{$var}->{group} = $defgroup if $defgroup;
+	# print STDERR "namedVariable $var ",Dumper($node->{'namedVariables'}->{$var});
       }
     }
     
