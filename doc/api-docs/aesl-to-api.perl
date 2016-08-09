@@ -101,21 +101,23 @@ foreach my $node (@$nodes) {
     $oas->{paths}->{$endpoint}->{get}->{responses}->{"200"}->{examples}->{"application/json"} = [ (0) x int($variables{$va}->{size})];
     $oas->{paths}->{$endpoint}->{parameters} = [ grep { ($_->{name} ne 'variableslot') and ($_->{name} ne 'node') }
   						 @{$oas->{paths}->{$endpoint}->{parameters}} ];
-    # variable slots can also be updated
-    $oas->{paths}->{$endpoint}->{post} ||= dclone($ev_slot->{post});
-    my $brief = join(" ", $va, ("%n") x int($variables{$va}->{size}));
-    $oas->{paths}->{$endpoint}->{post}->{summary} = "update slot $va";
-    $oas->{paths}->{$endpoint}->{post}->{tags} = [ $variables{$va}->{group} ]
-      if (defined $variables{$va}->{group});
-    $oas->{paths}->{$endpoint}->{post}->{description} =
-      $brief  # first description line is Scratch block definition
-      . "\n\n"
-      . "Endpoint $va variable slot with $variables{$va}->{size} parameters discovered in AESL file";
-    $oas->{paths}->{$endpoint}->{post}->{operationId} = "POST_nodes-$route_name-$va";
-    $oas->{paths}->{$endpoint}->{post}->{parameters}->[0]->{schema}->{minItems} = int($variables{$va}->{size});
-    $oas->{paths}->{$endpoint}->{post}->{parameters}->[0]->{schema}->{maxItems} = int($variables{$va}->{size});
-    $oas->{paths}->{$endpoint}->{parameters} = [ grep { ($_->{name} ne 'slot') and ($_->{name} ne 'node') }
-						 @{$oas->{paths}->{$endpoint}->{parameters}} ];
+    # variable slots can also be updated unless marked read-only
+    if ($variables{$va}->{direction} =~ /in/) {
+      $oas->{paths}->{$endpoint}->{post} ||= dclone($ev_slot->{post});
+      my $brief = join(" ", $va, ("%n") x int($variables{$va}->{size}));
+      $oas->{paths}->{$endpoint}->{post}->{summary} = "update slot $va";
+      $oas->{paths}->{$endpoint}->{post}->{tags} = [ $variables{$va}->{group} ]
+	if (defined $variables{$va}->{group});
+      $oas->{paths}->{$endpoint}->{post}->{description} =
+	$brief  # first description line is Scratch block definition
+	. "\n\n"
+	. "Endpoint $va variable slot with $variables{$va}->{size} parameters discovered in AESL file";
+      $oas->{paths}->{$endpoint}->{post}->{operationId} = "POST_nodes-$route_name-$va";
+      $oas->{paths}->{$endpoint}->{post}->{parameters}->[0]->{schema}->{minItems} = int($variables{$va}->{size});
+      $oas->{paths}->{$endpoint}->{post}->{parameters}->[0]->{schema}->{maxItems} = int($variables{$va}->{size});
+      $oas->{paths}->{$endpoint}->{parameters} = [ grep { ($_->{name} ne 'slot') and ($_->{name} ne 'node') }
+						   @{$oas->{paths}->{$endpoint}->{parameters}} ];
+    }
   }
 
   # remove generic routes if specific ones were found
@@ -625,18 +627,36 @@ sub get_nodes {
     my $node = { 'node' => $nodeid, 'name' => $name };
 
     my %std_vars;
-    %std_vars = ("acc"=>'3', "button.backward"=>'1', "button.center"=>'1',
-		 "button.forward"=>'1', "button.left"=>'1', "button.right"=>'1',
-		 "event.args"=>'32', "event.source"=>'1', "mic.intensity"=>'1',
-		 "mic.threshold"=>'1', "motor.left.pwm"=>'1', "motor.left.speed"=>'1',
-		 "motor.left.target"=>'1', "motor.right.pwm"=>'1',
-		 "motor.right.speed"=>'1', "motor.right.target"=>'1', "prox.comm.rx"=>'1',
-		 "prox.comm.tx"=>'1', "prox.ground.ambiant"=>'2',
-		 "prox.ground.delta"=>'2', "prox.ground.reflected"=>'2',
-		 "prox.horizontal"=>'7', "rc5.address"=>'1', "rc5.command"=>'1',
-		 "temperature"=>'1', "timer.period"=>'2')
+    %std_vars = ("acc"=>['3','out'],
+		 "button.backward"=>['1','out'],
+		 "button.center"=>['1','out'],
+		 "button.forward"=>['1','out'],
+		 "button.left"=>['1','out'],
+		 "button.right"=>['1','out'],
+		 "event.args"=>['32','out'],
+		 "event.source"=>['1','out'],
+		 "mic.intensity"=>['1','out'],
+		 "mic.threshold"=>['1','out'],
+		 "motor.left.pwm"=>['1','out'],
+		 "motor.left.speed"=>['1','out'],
+		 "motor.left.target"=>['1','in,out'],
+		 "motor.right.pwm"=>['1','out'],
+		 "motor.right.speed"=>['1','out'],
+		 "motor.right.target"=>['1','in,out'],
+		 "prox.comm.rx"=>['1','in,out'],
+		 "prox.comm.tx"=>['1','in,out'],
+		 "prox.ground.ambiant"=>['2','out'],
+		 "prox.ground.delta"=>['2','out'],
+		 "prox.ground.reflected"=>['2','out'],
+		 "prox.horizontal"=>['7','out'],
+		 "rc5.address"=>['1','out'],
+		 "rc5.command"=>['1','out'],
+		 "temperature"=>['1','out'],
+		 "timer.period"=>['2','in,out'])
       if ($name =~ /^thymio/i);    
-    %std_vars = ("args"=>'32', "id"=>'1', "source"=>'1')
+    %std_vars = ("args"=>['32','out'],
+		 "id"=>['1','in,out'],
+		 "source"=>['1','in,out'])
       if ($name =~ /^dummynode/i);
     
     my $program = XML::XPath::XMLParser::as_string($no);
@@ -647,9 +667,10 @@ sub get_nodes {
     #   $node->{'namedVariables'}->{$var} = $size;
     # }
     foreach (keys %std_vars) {
-      $node->{'namedVariables'}->{$_}->{size} = $std_vars{$_};
-	$node->{'namedVariables'}->{$_}->{group} = 'Builtin';
-      }
+      $node->{'namedVariables'}->{$_}->{size} = $std_vars{$_}->[0];
+      $node->{'namedVariables'}->{$_}->{direction} = $std_vars{$_}->[1];
+      $node->{'namedVariables'}->{$_}->{group} = 'Builtin';
+    }
     
     my $brief = '';
     my @param = ();
@@ -682,12 +703,14 @@ sub get_nodes {
 	$brief = '';
 	@param = ();
       }
-      if ($line =~  m{^\s* var \s+ ([[:alnum:]\_\.]+) (?:\[(.*?)\])? }gsmx) {
+      if ($line =~  m{^\s* var \s+ ([[:alnum:]\_\.]+) (?:\[(.*?)\])? (?: .*?\#\#\!\s* \[(\w+)\])? }gsmx) {
 	my $var = $1;
 	(my $size = $2) ||= '1';
+	(my $direction = $3) ||= 'in,out';
 	$size = $constants{$size} if (defined $constants{$size});
 	$node->{'namedVariables'}->{$var} = { 'size'=>$size };
 	$node->{'namedVariables'}->{$var}->{group} = $defgroup if $defgroup;
+	$node->{'namedVariables'}->{$var}->{direction} = $direction;
 	# print STDERR "namedVariable $var ",Dumper($node->{'namedVariables'}->{$var});
 	# print STDERR "namedVariable $var size $size group $defgroup\n";
       }

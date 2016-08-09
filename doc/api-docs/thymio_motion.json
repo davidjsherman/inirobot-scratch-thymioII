@@ -1856,49 +1856,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "acc %n %n %n\n\nEndpoint acc variable slot with 3 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-acc",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 3,
-              "minItems": 3,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot acc",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/angle.back": {
       "get": {
@@ -2184,49 +2142,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "button.backward %n\n\nEndpoint button.backward variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-button.backward",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot button.backward",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/button.center": {
       "get": {
@@ -2266,49 +2182,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "button.center %n\n\nEndpoint button.center variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-button.center",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot button.center",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/button.forward": {
       "get": {
@@ -2348,49 +2222,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "button.forward %n\n\nEndpoint button.forward variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-button.forward",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot button.forward",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/button.left": {
       "get": {
@@ -2430,49 +2262,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "button.left %n\n\nEndpoint button.left variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-button.left",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot button.left",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/button.right": {
       "get": {
@@ -2512,49 +2302,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "button.right %n\n\nEndpoint button.right variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-button.right",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot button.right",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/distance.back": {
       "get": {
@@ -2789,49 +2537,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "event.args %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n %n\n\nEndpoint event.args variable slot with 32 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-event.args",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 32,
-              "minItems": 32,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot event.args",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/event.source": {
       "get": {
@@ -2871,49 +2577,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "event.source %n\n\nEndpoint event.source variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-event.source",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot event.source",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/mic.intensity": {
       "get": {
@@ -2953,49 +2617,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "mic.intensity %n\n\nEndpoint mic.intensity variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-mic.intensity",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot mic.intensity",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/mic.threshold": {
       "get": {
@@ -3035,49 +2657,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "mic.threshold %n\n\nEndpoint mic.threshold variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-mic.threshold",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot mic.threshold",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/motor.left.pwm": {
       "get": {
@@ -3117,49 +2697,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "motor.left.pwm %n\n\nEndpoint motor.left.pwm variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-motor.left.pwm",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot motor.left.pwm",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/motor.left.speed": {
       "get": {
@@ -3199,49 +2737,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "motor.left.speed %n\n\nEndpoint motor.left.speed variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-motor.left.speed",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot motor.left.speed",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/motor.left.target": {
       "get": {
@@ -3363,49 +2859,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "motor.right.pwm %n\n\nEndpoint motor.right.pwm variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-motor.right.pwm",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot motor.right.pwm",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/motor.right.speed": {
       "get": {
@@ -3445,49 +2899,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "motor.right.speed %n\n\nEndpoint motor.right.speed variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-motor.right.speed",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot motor.right.speed",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/motor.right.target": {
       "get": {
@@ -4184,49 +3596,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "prox.ground.ambiant %n %n\n\nEndpoint prox.ground.ambiant variable slot with 2 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-prox.ground.ambiant",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 2,
-              "minItems": 2,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot prox.ground.ambiant",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/prox.ground.delta": {
       "get": {
@@ -4267,49 +3637,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "prox.ground.delta %n %n\n\nEndpoint prox.ground.delta variable slot with 2 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-prox.ground.delta",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 2,
-              "minItems": 2,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot prox.ground.delta",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/prox.ground.reflected": {
       "get": {
@@ -4350,49 +3678,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "prox.ground.reflected %n %n\n\nEndpoint prox.ground.reflected variable slot with 2 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-prox.ground.reflected",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 2,
-              "minItems": 2,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot prox.ground.reflected",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/prox.horizontal": {
       "get": {
@@ -4438,49 +3724,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "prox.horizontal %n %n %n %n %n %n %n\n\nEndpoint prox.horizontal variable slot with 7 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-prox.horizontal",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 7,
-              "minItems": 7,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot prox.horizontal",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/rc5.address": {
       "get": {
@@ -4520,49 +3764,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "rc5.address %n\n\nEndpoint rc5.address variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-rc5.address",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot rc5.address",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/rc5.command": {
       "get": {
@@ -4602,49 +3804,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "rc5.command %n\n\nEndpoint rc5.command variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-rc5.command",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot rc5.command",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/temperature": {
       "get": {
@@ -4684,49 +3844,7 @@
           "Builtin"
         ]
       },
-      "parameters": [],
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "description": "temperature %n\n\nEndpoint temperature variable slot with 1 parameters discovered in AESL file",
-        "operationId": "POST_nodes-thymio-II-temperature",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 1,
-              "minItems": 1,
-              "type": "array"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "slot update accepted",
-            "schema": {
-              "type": "null"
-            }
-          },
-          "404": {
-            "description": "no such slot",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "summary": "update slot temperature",
-        "tags": [
-          "Builtin"
-        ]
-      }
+      "parameters": []
     },
     "/nodes/thymio-II/timer.period": {
       "get": {
