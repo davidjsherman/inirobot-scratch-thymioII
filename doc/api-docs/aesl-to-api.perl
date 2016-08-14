@@ -103,6 +103,7 @@ foreach my $node (@$nodes) {
   						 @{$oas->{paths}->{$endpoint}->{parameters}} ];
     # variable slots can also be updated unless marked read-only
     if ($variables{$va}->{direction} =~ /in/) {
+      # REST update by POST
       $oas->{paths}->{$endpoint}->{post} ||= dclone($ev_slot->{post});
       my $brief = join(" ", $va, ("%n") x int($variables{$va}->{size}));
       $oas->{paths}->{$endpoint}->{post}->{summary} = "update slot $va";
@@ -117,6 +118,21 @@ foreach my $node (@$nodes) {
       $oas->{paths}->{$endpoint}->{post}->{parameters}->[0]->{schema}->{maxItems} = int($variables{$va}->{size});
       $oas->{paths}->{$endpoint}->{parameters} = [ grep { ($_->{name} ne 'slot') and ($_->{name} ne 'node') }
 						   @{$oas->{paths}->{$endpoint}->{parameters}} ];
+      # nonconrfoming REST update by GET
+      my $get_endpoint = $endpoint . '{/values*}'; # composite path segments, slash-prefixed
+      $oas->{paths}->{$get_endpoint} ||= dclone($va_slot);
+      $oas->{paths}->{$get_endpoint}->{get}->{summary} = "update slot $va";
+      $oas->{paths}->{$get_endpoint}->{get}->{tags} = [ $variables{$va}->{group} ]
+	if (defined $variables{$va}->{group});
+      $oas->{paths}->{$get_endpoint}->{get}->{description} =
+	$brief  # first description line is Scratch reporter definition
+	. "\n\n"
+	. "Endpoint $va variable slot with $variables{$va}->{size} parameters discovered in AESL file";
+      $oas->{paths}->{$get_endpoint}->{get}->{operationId} = "GET_nodes-$route_name-$va-values";
+      $oas->{paths}->{$get_endpoint}->{get}->{responses} = $oas->{paths}->{$endpoint}->{post}->{responses};
+      $oas->{paths}->{$get_endpoint}->{parameters} = [ grep { ($_->{name} ne 'variableslot') and ($_->{name} ne 'node') }
+						       @{$oas->{paths}->{$get_endpoint}->{parameters}},
+						       { "name"=>"values", "in"=>"path", "required"=>"false", "type"=>"string" } ];
     }
   }
 

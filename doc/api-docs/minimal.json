@@ -3,7 +3,7 @@
     "schemes": [
         "http"
     ],
-    "host": "localhost:3001",
+    "host": "localhost:3000",
     "info": {
         "version": "v1",
         "title": "minimal",
