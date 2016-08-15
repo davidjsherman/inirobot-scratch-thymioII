@@ -1,0 +1,122 @@
+<!DOCTYPE html><head><title>Scratch-Thymio Documentation</title><meta charset="utf-8"></head><body><div class="main"><h1 id="scratch-and-thymio-ii">Scratch and Thymio-II</h1>
+<p>These files define a software link between Scratch 2 and the Thymio-II robot, with which one can interact with the Thymio-II using programs written in Scratch 2.</p>
+<p>Scratch 2 is a visual programming system designed for children. A Scratch 2 program is comprised of <em>sprites</em> and a <em>stage</em>, each of which has a behaviour, a set of appearances, a set of sounds, and state variables. Sprites communicate using messages and shared variables, as well as their interaction on the stage. The behaviour of a sprite is defined by an independent program organised around event handlers for global events, such as key presses, mouse movements, and messages.</p>
+<p>Thymio-II is an autonomous two-wheeled robot, also designed for children. It has proximity sensors, lights, sound, a 3-axis accelerometer, and independent motors for the wheels. The onboard microcontroller runs a user-defined event-based program, written in the <em>Aseba</em> language. Thymio-II can communicate with external programs using a USB link.</p>
+<p>In addition to this summary, you can read detailed documentation of the <a href="api-doc/" target="_blank">REST API</a> and the <a href="aesl-doc/" target="_blank"><code>thymio_motion.aesl</code> program</a>, and descriptions of the <a href="blocks.html" target="_blank">Scratch blocks</a>.</p>
+<h2 id="requirements">Requirements</h2>
+<ol>
+<li><a href="https://scratch.mit.edu/scratch2download/">Offline Scratch 2</a></li>
+<li>The asebascratch software (current release <a href="https://github.com/davidjsherman/inirobot-scratch-thymioII/releases/tag/v0.7.3-alpha">0.7.3-alpha</a>)</li>
+<li>A Thymio-II <em>connected by USB</em> (cable or RF dongle) to the machine running Scratch 2</li>
+<li>On Windows, the <a href="https://aseba.wikidot.com/en:start">Aseba software</a> that came with the robot</li>
+</ol>
+<h2 id="quick-start">Quick start</h2>
+<ol>
+<li>Download and open the bundle for your operating system.</li>
+<li>Double-click “Scratch2-ThymioII” to run the helper</li>
+<li>Open one of the Scratch 2 examples</li>
+</ol>
+<h2 id="rationale">Rationale</h2>
+<p>In order for the connection between Scratch 2 and Thymio-II to be useful in a teaching setting, we need to find the best match between their respective programming concepts. Note that many do not match: for example, Scratch 2 sprites have an absolute X-Y position and can move instantaneously, whereas the Thymio-II can only move by running its motors; Scratch 2 sprites can have many costumes whereas the Thymio-II can only changes its lights; Thymio-II can continue to move even when the controlling program is busy, and so on. Furthermore, the operations available on the Thymio-II are at a lower level of abstraction than what might be expected by a traditional Scratch 2 programmer.</p>
+<p>This software defines a “Scratch 2 personality” for the Thymio-II that can be modified fairly easily to test different language elements.</p>
+<h2 id="implementation">Implementation</h2>
+<p>Extensions are added to offline Scratch 2 by a helper application, running on the same machine, that communicates with Scratch 2 using HTTP. An extension description file written in JSON declares the new blocks and reporters made available to Scratch 2 by the extension, and maps them to the REST interface provided by the helper.</p>
+<p>The helper application <em>asebascratch</em> implements a micro web server that translates Scratch 2 requests to Aseba messages. It is an extension of my <em>asebahttp</em> switch, which provides a generic HTTP interface to the Thymio-II.</p>
+<p>The interface to the Thymio-II is defined by a bytecode program <em>thymio_motion.aesl</em> that provides</p>
+<ul>
+<li>basic events for motors, lights, and sound;</li>
+<li>variables that report on the robot’s environment;</li>
+<li>a queue for blocking operations such as motion;</li>
+<li>simple odometry for reporting the robot’s approximate position.</li>
+</ul>
+<p>This program is loaded automatically by a helper script.</p>
+<h2 id="interfaces">Interfaces</h2>
+<h3 id="rest-interfaces-provided-by-asebascratch">REST interfaces provided by asebascratch</h3>
+<p>The asebascratch helper responds to five kinds of request:</p>
+<ol>
+<li><strong>/scratch_…</strong>
+A high-level Scratch 2 interface for turtle motion, simplified environment sensing, Scratch 2 color effects </li>
+<li><strong>/Q_…</strong>, <strong>/V_…</strong>, <strong>/A_…</strong>, <strong>/M_…</strong>
+A mid-level interface to events defined in thymio_motion.aesl</li>
+<li><strong>/_variable<em>name</em></strong>
+Get/set interface to robot variables</li>
+<li><strong>/poll, /reset_all</strong>
+Standard requests required by Scratch 2</li>
+<li><strong>/nodes/thymio-II</strong>
+JSON description of the events defined in thymio_motion.aesl and available through the REST interface</li>
+</ol>
+<h3 id="scratch-2-high-level-blocks-and-reporters">Scratch 2 high-level blocks and reporters</h3>
+<p>Importing ext-scratch-thymioII.json into Scratch 2 provides the following blocks:</p>
+<ul>
+<li>move N mm</li>
+<li>turn N degrees</li>
+<li>curve radius N mm N degrees</li>
+<li>start motors N x N mm/sec</li>
+<li>change motors N x N mm/sec</li>
+<li>stop motors</li>
+<li>switch dial to N</li>
+<li>next dial</li>
+<li>next dial up to N</li>
+<li>leds clear</li>
+<li>leds set color N flags N</li>
+<li>leds change color N flags N</li>
+<li>play note N for N 60ths</li>
+<li>play system sound N</li>
+<li>set odometer direction:N x:N y:N</li>
+</ul>
+<p>and provides the following reporter variables:</p>
+<ul>
+<li>touching SENSORS (boolean)</li>
+<li>button BUTTON (boolean)</li>
+<li>clap (boolean)</li>
+<li>distance SENSORS (0..190 mm)</li>
+<li>angle ANGLE (-90..90 degrees)</li>
+<li>motor LEFTRIGHT speed (-200..200 mm/sec)</li>
+<li>motor LEFTRIGHT target (-200..200 mm/sec)</li>
+<li>tilt on TILT axis</li>
+<li>leds color LIGHT</li>
+<li>sensing front</li>
+<li>temperature (-40..40)</li>
+<li>loundness (-100..100)</li>
+<li>odometer ODO</li>
+</ul>
+<p>where</p>
+<ul>
+<li>N is a floating-point number</li>
+<li>SENSORS :=   front | back | ground</li>
+<li>BUTTON :=    center | forward | backward | left | right</li>
+<li>ANGLE := front | back</li>
+<li>LEFTRIGHT := left | right</li>
+<li>TILT := right_left | front_back | top_bottom</li>
+<li>LIGHT := top | bottom/left | bottom/right</li>
+<li>ODO := direction | x | y</li>
+</ul>
+<h3 id="low-level-events">Low-level events</h3>
+<p>Loading thymio_motion.aesl into the Thymio-II defined the following events, with the indicated number of arguments:</p>
+<ul>
+<li>Q_add_motion : 4</li>
+<li>Q_cancel_motion : 1</li>
+<li>Q_motion_added : 5</li>
+<li>Q_motion_cancelled : 5</li>
+<li>Q_motion_started : 5</li>
+<li>Q_motion_ended : 5</li>
+<li>Q_motion_noneleft : 1</li>
+<li>Q_set_odometer : 3</li>
+<li>V_leds_prox_h : 8</li>
+<li>V_leds_circle : 8</li>
+<li>V_leds_top : 3</li>
+<li>V_leds_bottom : 4</li>
+<li>V_leds_prox_v : 2</li>
+<li>V_leds_buttons : 4</li>
+<li>V_leds_rc : 1</li>
+<li>V_leds_temperature : 2</li>
+<li>V_leds_sound : 1</li>
+<li>A_sound_freq : 2</li>
+<li>A_sound_play : 1</li>
+<li>A_sound_system : 1</li>
+<li>A_sound_replay : 1</li>
+<li>A_sound_record : 1</li>
+<li>M_motor_left : 1</li>
+<li>M_motor_right : 1</li>
+</ul>
+</div></body>
