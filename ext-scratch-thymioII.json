@@ -31,6 +31,8 @@
 	["r", "temperature",                       "temperature"                              ],
 	["r", "loundness",                         "mic.intensity"                            ],
     ["r", "odometer %m.odo",                   "odo",                                     "direction"],
+       ["r", "proximity %n", "proximity", 2],
+       ["r", "ground %n", "ground", 0],
     ],
     "menus": {
 	"leftright": ["left", "right"],
