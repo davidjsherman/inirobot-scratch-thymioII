@@ -30,6 +30,8 @@
        ["r", "odo.x", "odo.x"],
        ["r", "odo.y", "odo.y"],
        ["r", "odo.degree", "odo.degree"],
+       ["r", "proximity %n", "proximity", 2],
+       ["r", "ground %n", "ground", 0],
        ["r", "acc", "acc"],
        ["r", "acc._tap", "acc._tap"],
        ["r", "prox.horizontal", "prox.horizontal"],
