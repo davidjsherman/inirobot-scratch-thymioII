@@ -1,0 +1,46 @@
+<!DOCTYPE aseba-playground>
+<aseba-playground>
+	<author name="David James Sherman" email="david dot sherman at inria dot fr" />
+	<description lang="en">This playground for Class'Code allows two teams to develop a "fox" behavior for the Thymio-II. The robot must first search the space to find the path, avoiding obstacles. It must then follow the path until it finds the blue square.
+	</description>
+	<description lang="fr">Cette scène pour Class'Code permet à deux equipes de développer un comportement « renard » pour le Thymio-II. Le robot doit d'abord explorer l'espace pour trouver la piste, tout en évitant les obstacles. Il doit ensuite suivre la piste jusqu'à ce qu'il trouve le carré bleu.
+	</description>
+
+	<color name="white" r="1.0" g="1.0" b="1.0" />
+	<color name="wall" r="0.9" g="0.9" b="0.9" />
+	<color name="red" r="0.77" g="0.2" b="0.15" />
+	<color name="blue" r="0" g="0.38" b="0.61" />
+	<color name="tree" r="0" g="0.61" b="0" />
+	<color name="goal" r="0.38" g="0.61" b="1.0" />
+	<color name="obstacle" r="0.9" g="0.9" b="0.38" />
+
+	<world w="240" h="180" color="white" groundTexture="classcode.png" />
+	<wall x="121.25" y="178.00" l1="242.50" l2="2.00" h="10.00" color="wall" />
+	<wall x="241.50" y="103.00" l1="2.00" l2="152.00" h="10.00" color="wall" />
+	<wall x="121.25" y="28.00" l1="242.50" l2="2.00" h="10.00" color="wall" />
+	<wall x="1.00" y="103.00" l1="2.00" l2="152.00" h="10.00" color="wall" />
+	<wall x="215.00" y="42.50" l1="60.31" l2="2.00" h="10.00" color="wall" angle="0.540" />
+	<wall x="25.00" y="162.50" l1="60.31" l2="2.00" h="10.00" color="wall" angle="0.540" />
+
+	<wall x="130.00" y="117.50" l1="12.00" l2="2.00" h="10.00" color="goal" />
+	<wall x="135.00" y="112.50" l1="2.00" l2="12.00" h="10.00" color="goal" />
+	<wall x="130.00" y="107.50" l1="12.00" l2="2.00" h="10.00" color="goal" />
+	<wall x="125.00" y="112.50" l1="2.00" l2="12.00" h="10.00" color="goal" />
+	<wall x="110.00" y="97.50" l1="12.00" l2="2.00" h="10.00" color="goal" />
+	<wall x="115.00" y="92.50" l1="2.00" l2="12.00" h="10.00" color="goal" />
+	<wall x="110.00" y="87.50" l1="12.00" l2="2.00" h="10.00" color="goal" />
+	<wall x="105.00" y="92.50" l1="2.00" l2="12.00" h="10.00" color="goal" />
+
+	<wall x="120.00" y="67.50" l1="32.00" l2="2.00" h="15.00" color="wall" />
+	<wall x="120.00" y="137.50" l1="32.00" l2="2.00" h="15.00" color="wall" />
+	<cylinder x="185.00" y="82.50" r="6.00" h="10.00" color="obstacle" mass="200" />
+	<cylinder x="55.00" y="122.50" r="6.00" h="10.00" color="obstacle" mass="200" />
+	<cylinder x="85.00" y="42.50" r="6.00" h="10.00" color="obstacle" mass="200" />
+	<cylinder x="155.00" y="164.50" r="6.00" h="10.00" color="obstacle" mass="200" />
+	<cylinder x="70.00" y="177.50" r="6.00" h="10.00" color="obstacle" mass="200" />
+	<cylinder x="170.50" y="37.50" r="6.00" h="10.00" color="obstacle" mass="200" />
+	<cylinder x="215.00" y="152.50" r="10.00" h="15.00" color="tree" />
+	<cylinder x="25.50" y="52.50" r="10.00" h="15.00" color="tree" />
+	<thymio2 x="120.00" y="42.50" port="33333" angle="0.00" />
+	<thymio2 x="120.00" y="165.00" port="33334" angle="3.14" />
+</aseba-playground>
