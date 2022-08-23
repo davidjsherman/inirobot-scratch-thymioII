@@ -1,0 +1,1918 @@
+{
+   "schemes" : [
+      "http"
+   ],
+   "definitions" : {
+      "nodedescription" : {
+         "type" : "object",
+         "required" : [
+            "node",
+            "name",
+            "protocolVersion",
+            "aeslId",
+            "bytecodeSize",
+            "variablesSize",
+            "stackSize",
+            "namedVariables",
+            "localEvents",
+            "constants",
+            "events"
+         ],
+         "properties" : {
+            "aeslId" : {
+               "type" : "integer"
+            },
+            "events" : {
+               "properties" : {
+                  "name" : {
+                     "type" : "integer"
+                  }
+               },
+               "type" : "object"
+            },
+            "constants" : {
+               "type" : "object",
+               "properties" : {
+                  "name" : {
+                     "type" : "integer"
+                  }
+               }
+            },
+            "namedVariables" : {
+               "type" : "object",
+               "properties" : {
+                  "name" : {
+                     "type" : "integer"
+                  }
+               }
+            },
+            "variablesSize" : {
+               "type" : "integer"
+            },
+            "node" : {
+               "type" : "integer"
+            },
+            "protocolVersion" : {
+               "type" : "integer"
+            },
+            "name" : {
+               "type" : "string"
+            },
+            "bytecodeSize" : {
+               "type" : "integer"
+            },
+            "localEvents" : {
+               "type" : "object",
+               "properties" : {
+                  "name" : {
+                     "type" : "string"
+                  }
+               }
+            },
+            "stackSize" : {
+               "type" : "integer"
+            }
+         }
+      },
+      "nodeshort" : {
+         "items" : {
+            "type" : "object",
+            "required" : [
+               "node",
+               "name",
+               "protocolVersion",
+               "aeslId"
+            ],
+            "properties" : {
+               "aeslId" : {
+                  "type" : "integer"
+               },
+               "name" : {
+                  "type" : "string"
+               },
+               "protocolVersion" : {
+                  "type" : "integer"
+               },
+               "node" : {
+                  "type" : "integer"
+               }
+            }
+         },
+         "type" : "array"
+      }
+   },
+   "swagger" : "2.0",
+   "host" : "localhost:3001",
+   "parameters" : {
+      "trait:serverSentEventStream:todo" : {
+         "in" : "query",
+         "type" : "integer",
+         "required" : false,
+         "name" : "todo"
+      }
+   },
+   "paths" : {
+      "/nodes/4/tick" : {
+         "get" : {
+            "responses" : {
+               "200" : {
+                  "description" : "variable slot",
+                  "schema" : {
+                     "type" : "array",
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "maxItems" : 1,
+                     "minItems" : 1
+                  },
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  }
+               },
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               }
+            },
+            "parameters" : [],
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "read slot tick",
+            "description" : "tick\n\nEndpoint tick variable slot of size 1 discovered in AESL file",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes-4-tick",
+            "consumes" : []
+         },
+         "parameters" : []
+      },
+      "/nodes/4/who" : {
+         "get" : {
+            "parameters" : [],
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "read slot who",
+            "responses" : {
+               "200" : {
+                  "description" : "variable slot",
+                  "schema" : {
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "maxItems" : 1,
+                     "minItems" : 1,
+                     "type" : "array"
+                  },
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  }
+               },
+               "404" : {
+                  "description" : "no such variable slot",
+                  "schema" : {
+                     "type" : "string"
+                  }
+               }
+            },
+            "consumes" : [],
+            "description" : "who\n\nEndpoint who variable slot of size 1 discovered in AESL file",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes-4-who"
+         },
+         "parameters" : []
+      },
+      "/nodes/1/source" : {
+         "get" : {
+            "description" : "source\n\nEndpoint source variable slot of size 1 discovered in AESL file",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes-1-source",
+            "consumes" : [],
+            "responses" : {
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               },
+               "200" : {
+                  "description" : "variable slot",
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 1,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "minItems" : 1
+                  },
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  }
+               }
+            },
+            "parameters" : [],
+            "summary" : "read slot source",
+            "tags" : [
+               "Nodes"
+            ]
+         },
+         "parameters" : []
+      },
+      "/nodes/3/source" : {
+         "get" : {
+            "responses" : {
+               "200" : {
+                  "description" : "variable slot",
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  },
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 1,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "minItems" : 1
+                  }
+               },
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               }
+            },
+            "summary" : "read slot source",
+            "tags" : [
+               "Nodes"
+            ],
+            "parameters" : [],
+            "operationId" : "GET_nodes-3-source",
+            "produces" : [
+               "application/json"
+            ],
+            "description" : "source\n\nEndpoint source variable slot of size 1 discovered in AESL file",
+            "consumes" : []
+         },
+         "parameters" : []
+      },
+      "/nodes/4/args" : {
+         "get" : {
+            "responses" : {
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               },
+               "200" : {
+                  "examples" : {
+                     "application/json" : [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                     ]
+                  },
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 32,
+                     "minItems" : 32,
+                     "items" : {
+                        "type" : "integer"
+                     }
+                  },
+                  "description" : "variable slot"
+               }
+            },
+            "parameters" : [],
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "read slot args",
+            "description" : "args\n\nEndpoint args variable slot of size 32 discovered in AESL file",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes-4-args",
+            "consumes" : []
+         },
+         "parameters" : []
+      },
+      "/nodes/2/id" : {
+         "parameters" : [],
+         "get" : {
+            "summary" : "read slot id",
+            "tags" : [
+               "Nodes"
+            ],
+            "parameters" : [],
+            "responses" : {
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               },
+               "200" : {
+                  "description" : "variable slot",
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  },
+                  "schema" : {
+                     "type" : "array",
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "maxItems" : 1,
+                     "minItems" : 1
+                  }
+               }
+            },
+            "consumes" : [],
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes-2-id",
+            "description" : "id\n\nEndpoint id variable slot of size 1 discovered in AESL file"
+         }
+      },
+      "/nodes/1/id" : {
+         "get" : {
+            "responses" : {
+               "404" : {
+                  "description" : "no such variable slot",
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               "200" : {
+                  "description" : "variable slot",
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  },
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 1,
+                     "minItems" : 1,
+                     "items" : {
+                        "type" : "integer"
+                     }
+                  }
+               }
+            },
+            "parameters" : [],
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "read slot id",
+            "description" : "id\n\nEndpoint id variable slot of size 1 discovered in AESL file",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes-1-id",
+            "consumes" : []
+         },
+         "parameters" : []
+      },
+      "/nodes/3/seen" : {
+         "get" : {
+            "summary" : "read slot seen",
+            "tags" : [
+               "Nodes"
+            ],
+            "parameters" : [],
+            "responses" : {
+               "404" : {
+                  "description" : "no such variable slot",
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               "200" : {
+                  "schema" : {
+                     "type" : "array",
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "maxItems" : 2,
+                     "minItems" : 2
+                  },
+                  "examples" : {
+                     "application/json" : [
+                        0,
+                        0
+                     ]
+                  },
+                  "description" : "variable slot"
+               }
+            },
+            "consumes" : [],
+            "operationId" : "GET_nodes-3-seen",
+            "produces" : [
+               "application/json"
+            ],
+            "description" : "seen\n\nEndpoint seen variable slot of size 2 discovered in AESL file"
+         },
+         "parameters" : []
+      },
+      "/nodes/1/wakeup" : {
+         "post" : {
+            "parameters" : [
+               {
+                  "schema" : {
+                     "type" : "array",
+                     "minItems" : 1,
+                     "maxItems" : 1,
+                     "items" : {
+                        "type" : "integer"
+                     }
+                  },
+                  "in" : "body",
+                  "name" : "body"
+               }
+            ],
+            "summary" : "update slot wakeup",
+            "tags" : [
+               "Nodes"
+            ],
+            "responses" : {
+               "204" : {
+                  "description" : "slot update accepted",
+                  "schema" : {
+                     "type" : "null"
+                  }
+               },
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such slot"
+               }
+            },
+            "consumes" : [
+               "application/json"
+            ],
+            "description" : "wakeup\n\nEndpoint wakeup event slot with 1 parameters discovered in AESL file",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "POST_nodes-1-wakeup"
+         },
+         "parameters" : []
+      },
+      "/nodes/1/args" : {
+         "parameters" : [],
+         "get" : {
+            "consumes" : [],
+            "operationId" : "GET_nodes-1-args",
+            "produces" : [
+               "application/json"
+            ],
+            "description" : "args\n\nEndpoint args variable slot of size 32 discovered in AESL file",
+            "summary" : "read slot args",
+            "tags" : [
+               "Nodes"
+            ],
+            "parameters" : [],
+            "responses" : {
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               },
+               "200" : {
+                  "description" : "variable slot",
+                  "examples" : {
+                     "application/json" : [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                     ]
+                  },
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 32,
+                     "minItems" : 32,
+                     "items" : {
+                        "type" : "integer"
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/nodes/4/vec10" : {
+         "get" : {
+            "description" : "vec10\n\nEndpoint vec10 variable slot of size 10 discovered in AESL file",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes-4-vec10",
+            "consumes" : [],
+            "responses" : {
+               "200" : {
+                  "description" : "variable slot",
+                  "schema" : {
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "maxItems" : 10,
+                     "minItems" : 10,
+                     "type" : "array"
+                  },
+                  "examples" : {
+                     "application/json" : [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                     ]
+                  }
+               },
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               }
+            },
+            "parameters" : [],
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "read slot vec10"
+         },
+         "parameters" : []
+      },
+      "/events/{node}" : {
+         "get" : {
+            "consumes" : [],
+            "description" : "subscribe to server-sent event streamfor given node",
+            "operationId" : "GET_events-node",
+            "produces" : [
+               "application/json"
+            ],
+            "parameters" : [
+               {
+                  "$ref" : "#/parameters/trait:serverSentEventStream:todo"
+               }
+            ],
+            "summary" : "event stream",
+            "tags" : [
+               "Events"
+            ],
+            "responses" : {
+               "200" : {
+                  "$ref" : "#/responses/trait:serverSentEventStream:200"
+               },
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such node, event stream not subscribed"
+               }
+            }
+         },
+         "parameters" : [
+            {
+               "in" : "path",
+               "required" : true,
+               "type" : "string",
+               "name" : "node"
+            }
+         ]
+      },
+      "/nodes/4/stop" : {
+         "post" : {
+            "consumes" : [
+               "application/json"
+            ],
+            "description" : "stop\n\nEndpoint stop event slot with 0 parameters discovered in AESL file",
+            "operationId" : "POST_nodes-4-stop",
+            "produces" : [
+               "application/json"
+            ],
+            "parameters" : [
+               {
+                  "in" : "body",
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 0,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "minItems" : 0
+                  },
+                  "name" : "body"
+               }
+            ],
+            "summary" : "update slot stop",
+            "tags" : [
+               "Nodes"
+            ],
+            "responses" : {
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such slot"
+               },
+               "204" : {
+                  "schema" : {
+                     "type" : "null"
+                  },
+                  "description" : "slot update accepted"
+               }
+            }
+         },
+         "parameters" : []
+      },
+      "/nodes/3/wakeup" : {
+         "parameters" : [],
+         "post" : {
+            "consumes" : [
+               "application/json"
+            ],
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "POST_nodes-3-wakeup",
+            "description" : "wakeup\n\nEndpoint wakeup event slot with 1 parameters discovered in AESL file",
+            "summary" : "update slot wakeup",
+            "tags" : [
+               "Nodes"
+            ],
+            "parameters" : [
+               {
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 1,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "minItems" : 1
+                  },
+                  "in" : "body",
+                  "name" : "body"
+               }
+            ],
+            "responses" : {
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such slot"
+               },
+               "204" : {
+                  "description" : "slot update accepted",
+                  "schema" : {
+                     "type" : "null"
+                  }
+               }
+            }
+         }
+      },
+      "/nodes/3/ping" : {
+         "post" : {
+            "responses" : {
+               "204" : {
+                  "description" : "slot update accepted",
+                  "schema" : {
+                     "type" : "null"
+                  }
+               },
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such slot"
+               }
+            },
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "update slot ping",
+            "parameters" : [
+               {
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 3,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "minItems" : 3
+                  },
+                  "in" : "body",
+                  "name" : "body"
+               }
+            ],
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "POST_nodes-3-ping",
+            "description" : "ping\n\nEndpoint ping event slot with 3 parameters discovered in AESL file",
+            "consumes" : [
+               "application/json"
+            ]
+         },
+         "parameters" : []
+      },
+      "/nodes/2/counter" : {
+         "parameters" : [],
+         "get" : {
+            "description" : "counter\n\nEndpoint counter variable slot of size 1 discovered in AESL file",
+            "operationId" : "GET_nodes-2-counter",
+            "produces" : [
+               "application/json"
+            ],
+            "consumes" : [],
+            "responses" : {
+               "200" : {
+                  "description" : "variable slot",
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 1,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "minItems" : 1
+                  },
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  }
+               },
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               }
+            },
+            "parameters" : [],
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "read slot counter"
+         }
+      },
+      "/nodes/1/ping" : {
+         "post" : {
+            "parameters" : [
+               {
+                  "in" : "body",
+                  "schema" : {
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "maxItems" : 3,
+                     "minItems" : 3,
+                     "type" : "array"
+                  },
+                  "name" : "body"
+               }
+            ],
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "update slot ping",
+            "responses" : {
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such slot"
+               },
+               "204" : {
+                  "schema" : {
+                     "type" : "null"
+                  },
+                  "description" : "slot update accepted"
+               }
+            },
+            "consumes" : [
+               "application/json"
+            ],
+            "description" : "ping\n\nEndpoint ping event slot with 3 parameters discovered in AESL file",
+            "operationId" : "POST_nodes-1-ping",
+            "produces" : [
+               "application/json"
+            ]
+         },
+         "parameters" : []
+      },
+      "/nodes/2/whoami" : {
+         "get" : {
+            "parameters" : [],
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "read slot whoami",
+            "responses" : {
+               "200" : {
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  },
+                  "schema" : {
+                     "maxItems" : 1,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "minItems" : 1,
+                     "type" : "array"
+                  },
+                  "description" : "variable slot"
+               },
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               }
+            },
+            "consumes" : [],
+            "description" : "whoami\n\nEndpoint whoami variable slot of size 1 discovered in AESL file",
+            "operationId" : "GET_nodes-2-whoami",
+            "produces" : [
+               "application/json"
+            ]
+         },
+         "parameters" : []
+      },
+      "/nodes/{node}/{slot}" : {
+         "post" : {
+            "responses" : {
+               "204" : {
+                  "schema" : {
+                     "type" : "null"
+                  },
+                  "description" : "slot update accepted"
+               },
+               "404" : {
+                  "description" : "no such slot",
+                  "schema" : {
+                     "type" : "string"
+                  }
+               }
+            },
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "update slot",
+            "parameters" : [
+               {
+                  "schema" : {
+                     "type" : "array",
+                     "items" : {
+                        "type" : "integer"
+                     }
+                  },
+                  "in" : "body",
+                  "name" : "body"
+               }
+            ],
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "POST_nodes-node-slot",
+            "description" : "assign to variable slot or emit event with given payload",
+            "consumes" : [
+               "application/json"
+            ]
+         },
+         "parameters" : [
+            {
+               "name" : "node",
+               "required" : true,
+               "type" : "string",
+               "in" : "path"
+            },
+            {
+               "in" : "path",
+               "type" : "string",
+               "required" : true,
+               "name" : "slot"
+            }
+         ]
+      },
+      "/nodes/4/source" : {
+         "parameters" : [],
+         "get" : {
+            "responses" : {
+               "404" : {
+                  "description" : "no such variable slot",
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               "200" : {
+                  "schema" : {
+                     "minItems" : 1,
+                     "maxItems" : 1,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "type" : "array"
+                  },
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  },
+                  "description" : "variable slot"
+               }
+            },
+            "parameters" : [],
+            "summary" : "read slot source",
+            "tags" : [
+               "Nodes"
+            ],
+            "description" : "source\n\nEndpoint source variable slot of size 1 discovered in AESL file",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes-4-source",
+            "consumes" : []
+         }
+      },
+      "/nodes/2/source" : {
+         "get" : {
+            "operationId" : "GET_nodes-2-source",
+            "produces" : [
+               "application/json"
+            ],
+            "description" : "source\n\nEndpoint source variable slot of size 1 discovered in AESL file",
+            "consumes" : [],
+            "responses" : {
+               "200" : {
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  },
+                  "schema" : {
+                     "maxItems" : 1,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "minItems" : 1,
+                     "type" : "array"
+                  },
+                  "description" : "variable slot"
+               },
+               "404" : {
+                  "description" : "no such variable slot",
+                  "schema" : {
+                     "type" : "string"
+                  }
+               }
+            },
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "read slot source",
+            "parameters" : []
+         },
+         "parameters" : []
+      },
+      "/nodes/{node}" : {
+         "parameters" : [
+            {
+               "type" : "string",
+               "required" : true,
+               "name" : "node",
+               "in" : "path"
+            }
+         ],
+         "get" : {
+            "description" : "return detailed description of one node",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes-node",
+            "consumes" : [],
+            "responses" : {
+               "200" : {
+                  "schema" : {
+                     "$ref" : "#/definitions/nodedescription"
+                  },
+                  "examples" : {
+                     "application/json" : {
+                        "bytecodeSize" : 1534,
+                        "localEvents" : {
+                           "motor" : "Motor timer",
+                           "button.backward" : "Backward button status changed",
+                           "mic" : "Fired when microphone intensity is above threshold",
+                           "acc" : "Accelerometer values updated",
+                           "prox" : "Proximity values updated",
+                           "button.forward" : "Forward button status changed",
+                           "timer1" : "Timer 1",
+                           "temperature" : "Temperature value updated",
+                           "rc5" : "RC5 message received",
+                           "button.center" : "Center button status changed",
+                           "button.left" : "Left button status changed",
+                           "timer0" : "Timer 0",
+                           "buttons" : "Buttons values updated",
+                           "button.right" : "Right button status changed",
+                           "sound.finished" : "Fired when the playback of a user initiated sound is finished",
+                           "prox.comm" : "Data received on the proximity communication",
+                           "tap" : "A tap is detected"
+                        },
+                        "stackSize" : 32,
+                        "constants" : {},
+                        "namedVariables" : {
+                           "button.center" : 1,
+                           "motor.left.target" : 1,
+                           "button.left" : 1,
+                           "temperature" : 1,
+                           "motor.right.pwm" : 1,
+                           "event.source" : 1,
+                           "motor.right.target" : 1,
+                           "prox.ground.ambiant" : 2,
+                           "button.forward" : 1,
+                           "_id" : 1,
+                           "rc5.command" : 1,
+                           "prox.ground.reflected" : 2,
+                           "motor.left.speed" : 1,
+                           "button.backward" : 1,
+                           "acc" : 3,
+                           "motor.right.speed" : 1,
+                           "prox.comm.tx" : 1,
+                           "mic.threshold" : 1,
+                           "_productId" : 1,
+                           "button.right" : 1,
+                           "prox.ground.delta" : 2,
+                           "event.args" : 32,
+                           "mic.intensity" : 1,
+                           "_fwversion" : 2,
+                           "prox.comm.rx" : 1,
+                           "motor.left.pwm" : 1,
+                           "prox.horizontal" : 7,
+                           "rc5.address" : 1,
+                           "timer.period" : 2
+                        },
+                        "aeslId" : 1,
+                        "events" : {},
+                        "protocolVersion" : 5,
+                        "variablesSize" : 585,
+                        "node" : 1,
+                        "name" : "thymio-II"
+                     }
+                  },
+                  "description" : "node details returned"
+               },
+               "404" : {
+                  "description" : "no such node",
+                  "schema" : {
+                     "type" : "string"
+                  }
+               }
+            },
+            "parameters" : [],
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "details of one node"
+         }
+      },
+      "/nodes" : {
+         "parameters" : [],
+         "get" : {
+            "consumes" : [],
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes",
+            "description" : "list all known nodes",
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "list nodes",
+            "parameters" : [],
+            "responses" : {
+               "200" : {
+                  "examples" : {
+                     "application/json" : [
+                        {
+                           "aeslId" : 1,
+                           "protocolVersion" : 5,
+                           "node" : 1,
+                           "name" : "thymio-II"
+                        },
+                        {
+                           "aeslId" : 2,
+                           "name" : "thymio-II",
+                           "protocolVersion" : 5,
+                           "node" : 21
+                        }
+                     ]
+                  },
+                  "schema" : {
+                     "items" : {
+                        "$ref" : "#/definitions/nodeshort"
+                     },
+                     "type" : "array"
+                  },
+                  "description" : "node list returned"
+               }
+            }
+         }
+      },
+      "/nodes/2/ping" : {
+         "post" : {
+            "responses" : {
+               "204" : {
+                  "schema" : {
+                     "type" : "null"
+                  },
+                  "description" : "slot update accepted"
+               },
+               "404" : {
+                  "description" : "no such slot",
+                  "schema" : {
+                     "type" : "string"
+                  }
+               }
+            },
+            "parameters" : [
+               {
+                  "name" : "body",
+                  "schema" : {
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "maxItems" : 3,
+                     "minItems" : 3,
+                     "type" : "array"
+                  },
+                  "in" : "body"
+               }
+            ],
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "update slot ping",
+            "description" : "ping\n\nEndpoint ping event slot with 3 parameters discovered in AESL file",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "POST_nodes-2-ping",
+            "consumes" : [
+               "application/json"
+            ]
+         },
+         "parameters" : []
+      },
+      "/nodes/{node}/{variableslot}" : {
+         "get" : {
+            "parameters" : [],
+            "summary" : "read slot",
+            "tags" : [
+               "Nodes"
+            ],
+            "responses" : {
+               "200" : {
+                  "schema" : {
+                     "type" : "array",
+                     "items" : {
+                        "type" : "integer"
+                     }
+                  },
+                  "description" : "variable slot"
+               },
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               }
+            },
+            "consumes" : [],
+            "description" : "read values from variable slot",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes-node-variableslot"
+         },
+         "parameters" : [
+            {
+               "in" : "path",
+               "type" : "string",
+               "required" : true,
+               "name" : "node"
+            },
+            {
+               "in" : "path",
+               "name" : "variableslot",
+               "type" : "string",
+               "required" : true
+            }
+         ]
+      },
+      "/nodes/1/counter" : {
+         "get" : {
+            "parameters" : [],
+            "summary" : "read slot counter",
+            "tags" : [
+               "Nodes"
+            ],
+            "responses" : {
+               "200" : {
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 1,
+                     "minItems" : 1,
+                     "items" : {
+                        "type" : "integer"
+                     }
+                  },
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  },
+                  "description" : "variable slot"
+               },
+               "404" : {
+                  "description" : "no such variable slot",
+                  "schema" : {
+                     "type" : "string"
+                  }
+               }
+            },
+            "consumes" : [],
+            "description" : "counter\n\nEndpoint counter variable slot of size 1 discovered in AESL file",
+            "operationId" : "GET_nodes-1-counter",
+            "produces" : [
+               "application/json"
+            ]
+         },
+         "parameters" : []
+      },
+      "/reset" : {
+         "get" : {
+            "responses" : {
+               "204" : {
+                  "description" : "reset request sent"
+               }
+            },
+            "tags" : [
+               "Reset"
+            ],
+            "summary" : "reset nodes",
+            "parameters" : [],
+            "operationId" : "GET_reset",
+            "produces" : [
+               "application/json"
+            ],
+            "description" : "send reset request to all nodes",
+            "consumes" : []
+         },
+         "parameters" : []
+      },
+      "/nodes/1/seen" : {
+         "get" : {
+            "operationId" : "GET_nodes-1-seen",
+            "produces" : [
+               "application/json"
+            ],
+            "description" : "seen\n\nEndpoint seen variable slot of size 2 discovered in AESL file",
+            "consumes" : [],
+            "responses" : {
+               "200" : {
+                  "examples" : {
+                     "application/json" : [
+                        0,
+                        0
+                     ]
+                  },
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 2,
+                     "minItems" : 2,
+                     "items" : {
+                        "type" : "integer"
+                     }
+                  },
+                  "description" : "variable slot"
+               },
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               }
+            },
+            "summary" : "read slot seen",
+            "tags" : [
+               "Nodes"
+            ],
+            "parameters" : []
+         },
+         "parameters" : []
+      },
+      "/nodes/2/wakeup" : {
+         "parameters" : [],
+         "post" : {
+            "responses" : {
+               "204" : {
+                  "description" : "slot update accepted",
+                  "schema" : {
+                     "type" : "null"
+                  }
+               },
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such slot"
+               }
+            },
+            "parameters" : [
+               {
+                  "in" : "body",
+                  "schema" : {
+                     "maxItems" : 1,
+                     "minItems" : 1,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "type" : "array"
+                  },
+                  "name" : "body"
+               }
+            ],
+            "summary" : "update slot wakeup",
+            "tags" : [
+               "Nodes"
+            ],
+            "description" : "wakeup\n\nEndpoint wakeup event slot with 1 parameters discovered in AESL file",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "POST_nodes-2-wakeup",
+            "consumes" : [
+               "application/json"
+            ]
+         }
+      },
+      "/nodes/2/args" : {
+         "get" : {
+            "consumes" : [],
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes-2-args",
+            "description" : "args\n\nEndpoint args variable slot of size 32 discovered in AESL file",
+            "summary" : "read slot args",
+            "tags" : [
+               "Nodes"
+            ],
+            "parameters" : [],
+            "responses" : {
+               "404" : {
+                  "description" : "no such variable slot",
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               "200" : {
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 32,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "minItems" : 32
+                  },
+                  "examples" : {
+                     "application/json" : [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                     ]
+                  },
+                  "description" : "variable slot"
+               }
+            }
+         },
+         "parameters" : []
+      },
+      "/nodes/3/whoami" : {
+         "parameters" : [],
+         "get" : {
+            "consumes" : [],
+            "description" : "whoami\n\nEndpoint whoami variable slot of size 1 discovered in AESL file",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes-3-whoami",
+            "parameters" : [],
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "read slot whoami",
+            "responses" : {
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               },
+               "200" : {
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  },
+                  "schema" : {
+                     "type" : "array",
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "maxItems" : 1,
+                     "minItems" : 1
+                  },
+                  "description" : "variable slot"
+               }
+            }
+         }
+      },
+      "/nodes/4/id" : {
+         "parameters" : [],
+         "get" : {
+            "consumes" : [],
+            "description" : "id\n\nEndpoint id variable slot of size 1 discovered in AESL file",
+            "operationId" : "GET_nodes-4-id",
+            "produces" : [
+               "application/json"
+            ],
+            "parameters" : [],
+            "summary" : "read slot id",
+            "tags" : [
+               "Nodes"
+            ],
+            "responses" : {
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               },
+               "200" : {
+                  "description" : "variable slot",
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  },
+                  "schema" : {
+                     "minItems" : 1,
+                     "maxItems" : 1,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "type" : "array"
+                  }
+               }
+            }
+         }
+      },
+      "/nodes/1/whoami" : {
+         "get" : {
+            "description" : "whoami\n\nEndpoint whoami variable slot of size 1 discovered in AESL file",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes-1-whoami",
+            "consumes" : [],
+            "responses" : {
+               "404" : {
+                  "description" : "no such variable slot",
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               "200" : {
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  },
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 1,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "minItems" : 1
+                  },
+                  "description" : "variable slot"
+               }
+            },
+            "parameters" : [],
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "read slot whoami"
+         },
+         "parameters" : []
+      },
+      "/events" : {
+         "parameters" : [],
+         "get" : {
+            "responses" : {
+               "default" : {
+                  "description" : "event stream not subscribed"
+               },
+               "200" : {
+                  "$ref" : "#/responses/trait:serverSentEventStream:200"
+               }
+            },
+            "summary" : "event stream",
+            "tags" : [
+               "Events"
+            ],
+            "parameters" : [
+               {
+                  "$ref" : "#/parameters/trait:serverSentEventStream:todo"
+               }
+            ],
+            "operationId" : "GET_events",
+            "produces" : [
+               "application/json"
+            ],
+            "description" : "subscribe to server-sent event stream",
+            "consumes" : []
+         }
+      },
+      "/nodes/4/start" : {
+         "parameters" : [],
+         "post" : {
+            "consumes" : [
+               "application/json"
+            ],
+            "description" : "start\n\nEndpoint start event slot with 0 parameters discovered in AESL file",
+            "operationId" : "POST_nodes-4-start",
+            "produces" : [
+               "application/json"
+            ],
+            "parameters" : [
+               {
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 0,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "minItems" : 0
+                  },
+                  "in" : "body",
+                  "name" : "body"
+               }
+            ],
+            "summary" : "update slot start",
+            "tags" : [
+               "Nodes"
+            ],
+            "responses" : {
+               "204" : {
+                  "description" : "slot update accepted",
+                  "schema" : {
+                     "type" : "null"
+                  }
+               },
+               "404" : {
+                  "description" : "no such slot",
+                  "schema" : {
+                     "type" : "string"
+                  }
+               }
+            }
+         }
+      },
+      "/nodes/2/seen" : {
+         "parameters" : [],
+         "get" : {
+            "description" : "seen\n\nEndpoint seen variable slot of size 2 discovered in AESL file",
+            "produces" : [
+               "application/json"
+            ],
+            "operationId" : "GET_nodes-2-seen",
+            "consumes" : [],
+            "responses" : {
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               },
+               "200" : {
+                  "description" : "variable slot",
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 2,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "minItems" : 2
+                  },
+                  "examples" : {
+                     "application/json" : [
+                        0,
+                        0
+                     ]
+                  }
+               }
+            },
+            "parameters" : [],
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "read slot seen"
+         }
+      },
+      "/nodes/3/id" : {
+         "get" : {
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "read slot id",
+            "parameters" : [],
+            "responses" : {
+               "200" : {
+                  "description" : "variable slot",
+                  "schema" : {
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "maxItems" : 1,
+                     "minItems" : 1,
+                     "type" : "array"
+                  },
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  }
+               },
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               }
+            },
+            "consumes" : [],
+            "operationId" : "GET_nodes-3-id",
+            "produces" : [
+               "application/json"
+            ],
+            "description" : "id\n\nEndpoint id variable slot of size 1 discovered in AESL file"
+         },
+         "parameters" : []
+      },
+      "/nodes/4/running" : {
+         "get" : {
+            "responses" : {
+               "200" : {
+                  "examples" : {
+                     "application/json" : [
+                        0
+                     ]
+                  },
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 1,
+                     "items" : {
+                        "type" : "integer"
+                     },
+                     "minItems" : 1
+                  },
+                  "description" : "variable slot"
+               },
+               "404" : {
+                  "schema" : {
+                     "type" : "string"
+                  },
+                  "description" : "no such variable slot"
+               }
+            },
+            "parameters" : [],
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "read slot running",
+            "description" : "running\n\nEndpoint running variable slot of size 1 discovered in AESL file",
+            "operationId" : "GET_nodes-4-running",
+            "produces" : [
+               "application/json"
+            ],
+            "consumes" : []
+         },
+         "parameters" : []
+      },
+      "/nodes/3/args" : {
+         "get" : {
+            "operationId" : "GET_nodes-3-args",
+            "produces" : [
+               "application/json"
+            ],
+            "description" : "args\n\nEndpoint args variable slot of size 32 discovered in AESL file",
+            "consumes" : [],
+            "responses" : {
+               "404" : {
+                  "description" : "no such variable slot",
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               "200" : {
+                  "description" : "variable slot",
+                  "examples" : {
+                     "application/json" : [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                     ]
+                  },
+                  "schema" : {
+                     "type" : "array",
+                     "maxItems" : 32,
+                     "minItems" : 32,
+                     "items" : {
+                        "type" : "integer"
+                     }
+                  }
+               }
+            },
+            "tags" : [
+               "Nodes"
+            ],
+            "summary" : "read slot args",
+            "parameters" : []
+         },
+         "parameters" : []
+      }
+   },
+   "responses" : {
+      "trait:serverSentEventStream:200" : {
+         "description" : "stream of server-sent events",
+         "schema" : {
+            "type" : "string"
+         }
+      }
+   },
+   "info" : {
+      "description" : "dummynode-0 dummynode-1 dummynode-2 dummynode-3 REST API for nodes 1 2 3 4",
+      "version" : "v1",
+      "title" : "asebahttp"
+   }
+}
+
